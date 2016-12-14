@@ -1,0 +1,10 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name api.rumors.hacktabl.org api.rumors.g0v.tw;
+
+  location ~* {
+    proxy_pass http://api:5000;
+  }
+}

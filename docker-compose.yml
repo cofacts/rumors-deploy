@@ -1,0 +1,23 @@
+version: '2'
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./volumes/nginx/sites-enabled:/etc/nginx/sites-enabled:ro"
+
+  site:
+    image: mrorz/rumors-site
+    environment:
+      - PORT=3000
+
+  api:
+    image: mrorz/rumors-api
+    volumes:
+      - "./volumes/api-config/production.js:/srv/www/config/production.js"
+
+  db:
+    image: elasticsearch
