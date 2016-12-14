@@ -10,7 +10,14 @@ Deployment scripts for g0v rumors project
 
 1. Clone the repo to production server
 2. Make necessary changes to files in `volumes/`
-3. `docker-compose up`
+3. `docker-compose up -d`
+
+## Updating any image
+
+After image change: `docker-compose up --no-deps -d <name>`
+After file in `volumes/` change: `docker-compose restart <name>`
+
+where `<name>` can be `nginx`, `site`, `api` and `db`.
 
 ## Testing on local machine
 
