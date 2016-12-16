@@ -8,16 +8,22 @@ services:
     volumes:
       - "./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
       - "./volumes/nginx/sites-enabled:/etc/nginx/sites-enabled:ro"
+    restart: always
 
   site:
     image: mrorz/rumors-site
     environment:
       - PORT=3000
+    restart: always
 
   api:
     image: mrorz/rumors-api
     volumes:
       - "./volumes/api-config/production.js:/srv/www/config/production.js"
+    restart: always
 
   db:
     image: elasticsearch
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+    restart: always
