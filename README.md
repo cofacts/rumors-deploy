@@ -8,7 +8,8 @@ Deployment scripts for g0v rumors project
 
 ## Deploy steps
 
-1. Clone the repo to production server
+0. `su` to appropriate user (for instance, `docker`)
+1. Clone this repo on production server
 2. Make necessary changes to files in `volumes/`
 3. `docker-compose up -d`
 
