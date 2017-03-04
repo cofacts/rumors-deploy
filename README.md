@@ -15,10 +15,20 @@ Deployment scripts for g0v rumors project
 
 ## Updating any image
 
-After image change: `docker-compose up --no-deps -d <name>`
-After file in `volumes/` change: `docker-compose restart <name>`
+After image change:
+```
+$ docker-compose pull <name>
+$ docker-compose up --no-deps -d <name>
+```
+
+After changings file in `volumes/`:
+
+```
+$ docker-compose restart <name>
+```
 
 where `<name>` can be `nginx`, `site`, `api` and `db`.
+
 
 ## Testing on local machine
 
