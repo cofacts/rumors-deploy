@@ -4,7 +4,7 @@ module.exports = {
   PORT: 5000,
   ROLLBAR_TOKEN: 'CHANGE_ME',
   ROLLBAR_ENV: 'production',
-  RUMORS_SITE_CORS_ORIGIN: 'http://rumors.hacktabl.org',
+  RUMORS_SITE_CORS_ORIGIN: 'https://rumors.hacktabl.org',
   RUMORS_LINE_BOT_SECRET: 'CHANGE_ME',
   FACEBOOK_APP_ID: 'CHANGE_ME',
   FACEBOOK_SECRET: 'CHANGE_ME',
