@@ -2,7 +2,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name api.rumors.hacktabl.org api.rumors.g0v.tw;
+  server_name api.rumors.hacktabl.org cofacts-api.g0v.tw cofacts-api.hacktabl.org;
 
   location ~* {
     proxy_pass http://api:5000;
