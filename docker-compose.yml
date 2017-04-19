@@ -5,9 +5,24 @@ services:
     image: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
       - "./volumes/nginx/sites-enabled:/etc/nginx/sites-enabled:ro"
+      - "/var/www/cofacts:/var/www/cofacts:ro"
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+      - "/etc/ssl/certs:/etc/ssl/certs:ro"
+      - "/var/log:/var/log"
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - "./volumes/certbot/renew-cron:/etc/cron.d/renew-cron"
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/etc/ssl/certs:/etc/ssl/certs"
+      - "/var/log:/var/log"
+    command: "cron && tail -f /var/log/cron.log"
     restart: always
 
   site:

@@ -1,0 +1,1 @@
+* * * * * root certbot certonly --webroot -w /var/www/cofacts -d cofacts.g0v.tw -d cofacts-api.g0v.tw -m darkbtf@gmail.com --agree-tos --non-interactive >> /var/log/cron.log 2>&1
