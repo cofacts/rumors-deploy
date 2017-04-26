@@ -12,6 +12,10 @@ Deployment scripts for g0v rumors project
 1. Clone this repo on production server
 2. Make necessary changes to files in `volumes/`
 3. `docker-compose up -d`
+4. `crontab -e` and add
+```
+0 0 1 */1 * docker run -v /var/www/cofacts:/var/www/cofacts -v /etc/letsencrypt:/etc/letsencrypt -v /etc/ssl/certs:/etc/ssl/certs -v /var/log:/var/log -it certbot/certbot certonly --webroot -w /var/www/cofacts -d cofacts.g0v.tw -d cofacts-api.g0v.tw -m your@emailaddress.com --agree-tos --non-interactive >> /var/log/cron.log 2>&1
+```
 
 ## Updating any image
 
