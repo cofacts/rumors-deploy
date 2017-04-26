@@ -22,7 +22,6 @@ services:
       - "/etc/letsencrypt:/etc/letsencrypt"
       - "/etc/ssl/certs:/etc/ssl/certs"
       - "/var/log:/var/log"
-    command: "cron && tail -f /var/log/cron.log"
     restart: always
 
   site:
