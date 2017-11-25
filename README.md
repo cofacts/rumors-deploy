@@ -41,8 +41,8 @@ where `<name>` can be `nginx`, `site`, `api` and `db`.
 Edit `/etc/hosts` to add:
 
 ```
-127.0.0.1 rumors.g0v.tw
-127.0.0.1 api.rumors.g0v.tw
+127.0.0.1 cofacts.g0v.tw
+127.0.0.1 cofacts-api.g0v.tw
 ```
 
-Then `docker-compose up`, and visit `rumors.g0v.tw`.
+Then `docker-compose up`, and visit `cofacts.g0v.tw`.
