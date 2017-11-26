@@ -1,16 +1,5 @@
 server {
   listen 80;
-  listen [::]:80;
-
-  server_name api.rumors.hacktabl.org cofacts-api.hacktabl.org;
-
-  location ~* {
-    proxy_pass http://api:5000;
-  }
-}
-
-server {
-  listen 80;
   server_name cofacts-api.g0v.tw;
   return 301 https://$host$request_uri;
 }

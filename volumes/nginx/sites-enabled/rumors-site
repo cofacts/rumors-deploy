@@ -1,33 +1,6 @@
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
-
-  server_name rumors.hacktabl.org;
-
-  location ~* /.well-known/ {
-    root /var/www/cofacts/;
-    #try_files $uri /;
-  }
-
-  location ~* / {
-    #try_files $uri $uri/ =404;
-    #root /var/www/cofacts/;
-    proxy_pass http://site:3000;
-  }
-
-  location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
-    expires 1M;
-    add_header Cache-Control "public";
-  }
-
-  location ~* \.(?:css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public";
-  }
-}
-
-server {
-  listen 80;
   server_name cofacts.g0v.tw;
   return 301 https://$host$request_uri;
 }
