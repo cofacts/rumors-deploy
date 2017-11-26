@@ -1,0 +1,10 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name cofacts-api.hacktabl.org;
+
+  location ~* {
+    proxy_pass http://api-staging:5000;
+  }
+}

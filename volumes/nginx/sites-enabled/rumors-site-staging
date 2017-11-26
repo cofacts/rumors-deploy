@@ -1,0 +1,27 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name cofacts.hacktabl.org;
+
+  location ~* /.well-known/ {
+    root /var/www/cofacts/;
+    #try_files $uri /;
+  }
+
+  location ~* / {
+    #try_files $uri $uri/ =404;
+    #root /var/www/cofacts/;
+    proxy_pass http://site-staging:3000;
+  }
+
+  location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+    expires 1M;
+    add_header Cache-Control "public";
+  }
+
+  location ~* \.(?:css|js)$ {
+    expires 1y;
+    add_header Cache-Control "public";
+  }
+}
