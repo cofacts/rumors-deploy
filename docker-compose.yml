@@ -49,10 +49,16 @@ services:
     restart: always
 
   db:
-    image: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
     environment:
-      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      - "path.repo=/usr/share/elasticsearch/data"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - "~/esdata:/usr/share/elasticsearch/data"
     restart: always
+    # No exposed ports by default.
+    # When migration, manually edit docker-compose to add "ports"
+    # and do `docker-compose restart db`.
 
   db-staging:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
