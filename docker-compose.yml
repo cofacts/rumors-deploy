@@ -55,8 +55,9 @@ services:
     restart: always
 
   db-staging:
-    image: elasticsearch:5
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
     environment:
+      - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - bootstrap.memory_lock=true
     ulimits:
@@ -67,3 +68,5 @@ services:
     volumes:
       - "~/db-staging:/usr/share/elasticsearch/data"
     restart: always
+    ports: # expose ports for db migration operations
+      - "62222:9200"
