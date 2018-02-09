@@ -28,12 +28,16 @@ services:
     image: mrorz/rumors-site
     environment:
       - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=production
     restart: always
 
   site-staging:
     image: mrorz/rumors-site:staging
     environment:
       - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=staging
     restart: always
 
   api:
