@@ -58,6 +58,7 @@ services:
       - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - "xpack.monitoring.enabled=false"
+      - "xpack.security.enabled=false" # https://discuss.elastic.co/t/97351
     volumes:
       - "./volumes/db-production:/usr/share/elasticsearch/data"
     restart: always
@@ -72,6 +73,7 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "bootstrap.memory_lock=true"
       - "xpack.monitoring.enabled=false"
+      - "xpack.security.enabled=false" # https://discuss.elastic.co/t/97351
     ulimits:
       memlock:
         soft: -1
