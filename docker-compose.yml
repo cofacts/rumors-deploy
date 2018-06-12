@@ -53,12 +53,10 @@ services:
     restart: always
 
   db:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
     environment:
       - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      - "xpack.monitoring.enabled=false"
-      - "xpack.security.enabled=false" # https://discuss.elastic.co/t/97351
     volumes:
       - "./volumes/db-production:/usr/share/elasticsearch/data"
     restart: always
@@ -67,13 +65,11 @@ services:
     # and do `docker-compose restart db`.
 
   db-staging:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
     environment:
       - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "bootstrap.memory_lock=true"
-      - "xpack.monitoring.enabled=false"
-      - "xpack.security.enabled=false" # https://discuss.elastic.co/t/97351
     ulimits:
       memlock:
         soft: -1
