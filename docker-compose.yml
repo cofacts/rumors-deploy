@@ -15,15 +15,6 @@ services:
       - "/var/log:/var/log"
     restart: always
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - "./volumes/certbot/renew-cron:/etc/cron.d/renew-cron"
-      - "/etc/letsencrypt:/etc/letsencrypt"
-      - "/etc/ssl/certs:/etc/ssl/certs"
-      - "/var/log:/var/log"
-    restart: always
-
   site:
     image: mrorz/rumors-site
     environment:
