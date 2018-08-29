@@ -71,3 +71,6 @@ services:
     restart: always
     ports: # expose ports for db migration operations
       - "62222:9200"
+
+  url-resolver:
+    image: johnsonliang/cofacts-url-resolver

@@ -12,4 +12,6 @@ module.exports = {
   TWITTER_CONSUMER_SECRET: 'CHANGE_ME',
   GITHUB_CLIENT_ID: 'CHANGE_ME',
   GITHUB_SECRET: 'CHANGE_ME',
+
+  URL_RESOLVER_URL: 'http://url-resolver:4000',
 };
