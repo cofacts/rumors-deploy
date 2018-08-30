@@ -74,3 +74,5 @@ services:
 
   url-resolver:
     image: johnsonliang/cofacts-url-resolver
+    environment:
+      - YOUTUBE_API_KEY=CHANGE_ME
