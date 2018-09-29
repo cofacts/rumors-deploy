@@ -74,5 +74,9 @@ services:
 
   url-resolver:
     image: johnsonliang/cofacts-url-resolver
+    mem_limit: 250m
+    restart: always
+    ports: # expose for debugging
+      - "4000:4000"
     environment:
       - YOUTUBE_API_KEY=CHANGE_ME
