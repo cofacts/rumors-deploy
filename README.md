@@ -46,3 +46,11 @@ Edit `/etc/hosts` to add:
 ```
 
 Then `docker-compose up`, and visit `cofacts.g0v.tw`.
+
+## Available Scripts
+
+There are some handy scripts under `scripts/` directory:
+
+### `check-url-resolver.sh`
+
+Prints URL resolver stat from currently running url-resolver
