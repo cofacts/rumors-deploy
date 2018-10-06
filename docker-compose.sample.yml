@@ -1,0 +1,88 @@
+version: '2'
+services:
+
+  site:
+    image: mrorz/rumors-site
+    environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=
+      - ROLLBAR_ENV=
+      - NODE_ENV=production
+      - PUBLIC_API_URL=http://api:5000
+      - PUBLIC_APP_ID=RUMORS_SITE
+      - PUBLIC_GA_TRACKER=
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  api:
+    image: mrorz/rumors-api
+    environment:
+      - ELASTICSEARCH_URL=http://db:9200
+      - ELASTIC_LOG_LEVEL=info
+      - PORT=5000
+      - COOKIE_SECRETS=
+      - ROLLBAR_TOKEN=
+      - ROLLBAR_ENV=production
+      - HTTP_HEADER_APP_ID=x-app-id
+      - HTTP_HEADER_APP_SECRET=x-app-secret
+      - RUMORS_SITE_CORS_ORIGIN=http://localhost:3000
+      - RUMORS_LINE_BOT_SECRET=CHANGE_ME
+      - FACEBOOK_APP_ID=
+      - FACEBOOK_SECRET=
+      - FACEBOOK_CALLBACK_URL=http://localhost:5000/callback/facebook
+      - TWITTER_CONSUMER_KEY=
+      - TWITTER_CONSUMER_SECRET
+      - TWITTER_CALLBACK_URL=http://localhost:5000/callback/twitter
+      - GITHUB_CLIENT_ID=
+      - GITHUB_SECRET=
+      - GITHUB_CALLBACK_URL=http://localhost:5000/callback/github
+      - URL_RESOLVER_URL=http://url-resolver:4000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+      - url-resolver
+
+  db:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
+    environment:
+      - "path.repo=/usr/share/elasticsearch/data"
+    volumes:
+      - "./volumes/db-sample:/usr/share/elasticsearch/data"
+    ports:
+      - "62222:9200"
+
+  url-resolver:
+    image: johnsonliang/cofacts-url-resolver
+    ports: # expose for debugging
+      - "4000:4000"
+    environment:
+      - YOUTUBE_API_KEY=
+
+  line-bot:
+    image: mrorz/rumors-line-bot
+    environment:
+      - LINE_CHANNEL_SECRET=
+      - LINE_CHANNEL_TOKEN=
+      - LINE_AT_ID=
+      - REDIS_URL=redis://redis:6379
+      - PORT=5001
+      - ROLLBAR_ENV=localhost
+      - ROLLBAR_TOKEN=
+      - APP_SECRET=CHANGE_ME
+      - API_URL=http://api:5000/graphql
+      - SITE_URL=http://localhost:3000
+      - USERID_BLACKLIST=
+      - GOOGLE_CREDENTIALS=
+      - GOOGLE_DRIVE_IMAGE_FOLDER=
+      - GA_ID=
+    ports:
+      - "5001:5001"
+    depends_on:
+      - api
+      - redis
+
+  redis:
+    image: redis
