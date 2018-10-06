@@ -2,3 +2,4 @@ volumes/db-production/*
 volumes/db-staging/*
 volumes/db-sample/*
 !.gitkeep
+docker-compose.yml
