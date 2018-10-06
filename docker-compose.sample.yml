@@ -13,6 +13,8 @@ services:
       - PUBLIC_GA_TRACKER=
     ports:
       - "3000:3000"
+    depends_on:
+      - api
 
   api:
     image: mrorz/rumors-api
@@ -39,6 +41,9 @@ services:
       - URL_RESOLVER_URL=http://url-resolver:4000
     ports:
       - "5000:5000"
+    depends_on:
+      - db
+      - url-resolver
 
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
@@ -55,3 +60,29 @@ services:
       - "4000:4000"
     environment:
       - YOUTUBE_API_KEY=
+
+  line-bot:
+    image: mrorz/rumors-line-bot
+    environment:
+      - LINE_CHANNEL_SECRET=
+      - LINE_CHANNEL_TOKEN=
+      - LINE_AT_ID=
+      - REDIS_URL=redis://redis:6379
+      - PORT=5001
+      - ROLLBAR_ENV=localhost
+      - ROLLBAR_TOKEN=
+      - APP_SECRET=CHANGE_ME
+      - API_URL=http://api:5000/graphql
+      - SITE_URL=http://localhost:3000
+      - USERID_BLACKLIST=
+      - GOOGLE_CREDENTIALS=
+      - GOOGLE_DRIVE_IMAGE_FOLDER=
+      - GA_ID=
+    ports:
+      - "5001:5001"
+    depends_on:
+      - api
+      - redis
+
+  redis:
+    image: redis
