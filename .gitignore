@@ -1,3 +1,4 @@
 volumes/db-production/*
 volumes/db-staging/*
+volumes/db-sample/*
 !.gitkeep
