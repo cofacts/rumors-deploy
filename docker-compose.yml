@@ -18,10 +18,10 @@ services:
   site:
     image: mrorz/rumors-site
     environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=production
       - NODE_ENV=production
-      - SERVER_PORT=3000
-      - SERVER_ROLLBAR_SERVER_TOKEN=CHANGE_ME
-      - SERVER_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.g0v.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKER=UA-98468513-1
@@ -31,10 +31,10 @@ services:
   site-staging:
     image: mrorz/rumors-site:staging
     environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=staging
       - NODE_ENV=production
-      - SERVER_PORT=3000
-      - SERVER_ROLLBAR_SERVER_TOKEN=CHANGE_ME
-      - SERVER_ROLLBAR_ENV=staging
       - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKER=UA-98468513-5
@@ -49,6 +49,8 @@ services:
       - COOKIE_SECRETS=
       - ROLLBAR_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=production
+      - HTTP_HEADER_APP_ID=x-app-id
+      - HTTP_HEADER_APP_SECRET=x-app-secret
       - RUMORS_SITE_CORS_ORIGIN=https://cofacts.g0v.tw
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
       - FACEBOOK_APP_ID=CHANGE_ME
@@ -73,6 +75,8 @@ services:
       - COOKIE_SECRETS=
       - ROLLBAR_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
+      - HTTP_HEADER_APP_ID=x-app-id
+      - HTTP_HEADER_APP_SECRET=x-app-secret
       - RUMORS_SITE_CORS_ORIGIN=https://cofacts.hacktabl.org
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
       - FACEBOOK_APP_ID=CHANGE_ME
@@ -88,7 +92,7 @@ services:
     restart: always
 
   db:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     environment:
       - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -100,7 +104,7 @@ services:
     # and do `docker-compose restart db`.
 
   db-staging:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     environment:
       - "path.repo=/usr/share/elasticsearch/data"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
