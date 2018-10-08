@@ -22,8 +22,11 @@ Explanation of each environment variables are in `.env.sample` of the correspond
 
 0. `su` to appropriate user (for instance, `docker`)
 1. Clone this repo on production server
-2. Make necessary changes to files in `volumes/`
+2. Make necessary changes to `docker-compose.yml` and files in `volumes/`
 3. `docker-compose up -d`
+
+If you want ot run the whole cofacts on the laptop, you may find this note useful:
+http://bit.ly/run-cofacts
 
 ## Updating any image
 
