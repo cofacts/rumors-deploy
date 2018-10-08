@@ -45,7 +45,7 @@ services:
     environment:
       - ELASTICSEARCH_URL=http://db:9200
       - ELASTIC_LOG_LEVEL=info
-      - PORT=5000,
+      - PORT=5000
       - COOKIE_SECRETS=
       - ROLLBAR_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=production
@@ -71,7 +71,7 @@ services:
     environment:
       - ELASTICSEARCH_URL=http://db-staging:9200
       - ELASTIC_LOG_LEVEL=info
-      - PORT=5000,
+      - PORT=5000
       - COOKIE_SECRETS=
       - ROLLBAR_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
