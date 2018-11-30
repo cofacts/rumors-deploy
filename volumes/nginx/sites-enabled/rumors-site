@@ -39,5 +39,6 @@ server {
 
   location ~ /.well-known {
     allow all;
+    root /var/www/cofacts;
   }
 }
