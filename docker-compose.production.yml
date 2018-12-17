@@ -129,4 +129,4 @@ services:
     environment:
       - YOUTUBE_API_KEY=CHANGE_ME
       - ROLLBAR_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=production
+      - ROLLBAR_ENV=production-cofacts
