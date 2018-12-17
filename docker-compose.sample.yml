@@ -60,6 +60,8 @@ services:
       - "4000:4000"
     environment:
       - YOUTUBE_API_KEY=
+      - ROLLBAR_TOKEN=
+      - ROLLBAR_ENV=production
 
   line-bot:
     image: mrorz/rumors-line-bot
