@@ -64,6 +64,9 @@ services:
       - GITHUB_CALLBACK_URL=CHANGE_ME
       - URL_RESOLVER_URL=http://url-resolver:4000
 
+      # Apollo engine
+      - ENGINE_API_KEY=CHANGE_ME
+
     restart: always
 
   api-staging:
@@ -130,3 +133,6 @@ services:
       - YOUTUBE_API_KEY=CHANGE_ME
       - ROLLBAR_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=production-cofacts
+
+      # Apollo engine
+      - ENGINE_API_KEY=CHANGE_ME
