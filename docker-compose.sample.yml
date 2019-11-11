@@ -2,14 +2,13 @@ version: '2'
 services:
 
   site:
-    image: mrorz/rumors-site
+    image: cofacts/rumors-site:latest-en
     environment:
       - PORT=3000
       - ROLLBAR_SERVER_TOKEN=
       - ROLLBAR_ENV=
       - NODE_ENV=production
       - PUBLIC_API_URL=http://api:5000
-      - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKER=
     ports:
       - "3000:3000"

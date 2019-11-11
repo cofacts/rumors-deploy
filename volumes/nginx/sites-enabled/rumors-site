@@ -1,3 +1,8 @@
+map $http_accept_language $lang_postfix {
+  default -en;
+  ~*^zh -zh;
+}
+
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
@@ -34,7 +39,7 @@ server {
     proxy_redirect off;
     proxy_read_timeout 240s;
 
-    proxy_pass http://site:3000/;
+    proxy_pass http://site${lang_postfix}:3000/;
   }
 
   location ~ /.well-known {
