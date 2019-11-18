@@ -1,18 +1,13 @@
-map $http_accept_language $lang_postfix {
-  default -en;
-  ~*^zh -zh;
-}
-
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
-  server_name cofacts.g0v.tw;
+  server_name zh.cofacts.g0v.tw;
   return 301 https://$host$request_uri;
 }
 
 server {
   listen 443 ssl;
-  server_name cofacts.g0v.tw;
+  server_name zh.cofacts.g0v.tw;
 
   ssl_certificate /etc/letsencrypt/live/cofacts.g0v.tw/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/cofacts.g0v.tw/privkey.pem;
@@ -39,7 +34,7 @@ server {
     proxy_redirect off;
     proxy_read_timeout 240s;
 
-    proxy_pass http://site${lang_postfix}:3000/;
+    proxy_pass http://site-zh:3000/;
   }
 
   location ~ /.well-known {

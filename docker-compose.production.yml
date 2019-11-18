@@ -15,21 +15,42 @@ services:
       - "/var/log:/var/log"
     restart: always
 
-  site:
-    image: mrorz/rumors-site
+  site-en:
+    image: cofacts/rumors-site:latest-en
     environment:
       - PORT=3000
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=production
       - NODE_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.g0v.tw
-      - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKER=UA-98468513-1
-
     restart: always
 
-  site-staging:
-    image: mrorz/rumors-site:staging
+  site-zh:
+    image: cofacts/rumors-site:latest-tw
+    environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=production
+      - NODE_ENV=production
+      - PUBLIC_API_URL=https://cofacts-api.g0v.tw
+      - PUBLIC_GA_TRACKER=UA-98468513-1
+    restart: always
+
+  site-staging-en:
+    image: cofacts/rumors-site:dev-en
+    environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=staging
+      - NODE_ENV=production
+      - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
+      - PUBLIC_APP_ID=RUMORS_SITE
+      - PUBLIC_GA_TRACKER=UA-98468513-5
+    restart: always
+
+  site-staging-zh:
+    image: cofacts/rumors-site:dev-tw
     environment:
       - PORT=3000
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
