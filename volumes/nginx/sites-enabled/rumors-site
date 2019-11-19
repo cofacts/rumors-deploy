@@ -39,7 +39,7 @@ server {
     proxy_redirect off;
     proxy_read_timeout 240s;
 
-    proxy_pass http://site${lang_postfix}:3000/;
+    proxy_pass http://site${lang_postfix}:3000;
   }
 
   location ~ /.well-known {

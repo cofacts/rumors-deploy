@@ -1,6 +1,6 @@
 server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
+  listen 80;
+  listen [::]:80;
   server_name en.cofacts.g0v.tw;
   return 301 https://$host$request_uri;
 }
