@@ -1,3 +1,5 @@
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:50m inactive=7d use_temp_path=off;
+
 map $http_accept_language $lang_postfix {
   default -en;
   ~*^zh -zh;
