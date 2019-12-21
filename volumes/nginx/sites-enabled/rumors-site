@@ -35,6 +35,14 @@ server {
     add_header X-Cache-Status $upstream_cache_status;
   }
 
+  location /analytics {
+    return 303 https://datastudio.google.com/open/18J8jZYumsoaCPBk9bdRd97GKvi_W5v-r;
+  }
+
+  location /hack {
+    return 303 https://beta.hackfoldr.org/1yXwRJwFNFHNJibKENnLCAV5xB8jnUvEwY_oUq-KcETU;
+  }
+
   location / {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Real-IP $remote_addr;
