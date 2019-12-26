@@ -5,11 +5,14 @@ services:
     image: cofacts/rumors-site:latest-en
     environment:
       - PORT=3000
-      - ROLLBAR_SERVER_TOKEN=
-      - ROLLBAR_ENV=
       - NODE_ENV=production
+      - SERVER_ROLLBAR_TOKEN=
+      - PUBLIC_ROLLBAR_TOKEN=
+      - PUBLIC_ROLLBAR_ENV=
       - PUBLIC_API_URL=http://api:5000
-      - PUBLIC_GA_TRACKER=
+      - PUBLIC_GTM_ID=
+      - SERVER_STACKIMPACT_AGENT_KEY=
+      - SERVER_STACKIMPACT_APP_NAME=
     ports:
       - "3000:3000"
     depends_on:
