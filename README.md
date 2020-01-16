@@ -61,3 +61,14 @@ There are some handy scripts under `scripts/` directory:
 ### `check-url-resolver.sh`
 
 Prints URL resolver stat from currently running url-resolver
+
+### `update-line-bot-token.sh`
+
+You should [install jq](https://stedolan.github.io/jq/download/) first.
+sudo apt-get install jq
+
+Use `heroku authorizations:create` to create a token that [expires at a specific time or never expires](https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api).
+
+Get `CHANNEL_ID`, `CHENNEL_SECRET` form [line developer console](https://developers.line.biz/console/).
+
+Get `APP_NAME` form heroku.
