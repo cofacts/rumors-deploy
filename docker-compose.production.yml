@@ -68,7 +68,7 @@ services:
     restart: always
 
   api:
-    image: mrorz/rumors-api
+    image: cofacts/rumors-api
     environment:
       - ELASTICSEARCH_URL=http://db:9200
       - ELASTIC_LOG_LEVEL=info
@@ -97,7 +97,7 @@ services:
     restart: always
 
   api-staging:
-    image: mrorz/rumors-api:staging
+    image: cofacts/rumors-api:staging
     environment:
       - ELASTICSEARCH_URL=http://db-staging:9200
       - ELASTIC_LOG_LEVEL=info
@@ -151,7 +151,7 @@ services:
       - "62222:9200"
 
   url-resolver:
-    image: johnsonliang/cofacts-url-resolver
+    image: cofacts/url-resolver
     mem_limit: 250m
     restart: always
     ports: # expose for debugging

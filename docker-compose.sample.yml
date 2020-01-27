@@ -19,7 +19,7 @@ services:
       - api
 
   api:
-    image: mrorz/rumors-api
+    image: cofacts/rumors-api
     environment:
       - ELASTICSEARCH_URL=http://db:9200
       - ELASTIC_LOG_LEVEL=info
@@ -57,7 +57,7 @@ services:
       - "62222:9200"
 
   url-resolver:
-    image: johnsonliang/cofacts-url-resolver
+    image: cofacts/url-resolver
     ports: # expose for debugging
       - "4000:4000"
     environment:
