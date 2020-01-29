@@ -89,7 +89,7 @@ services:
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
       - GITHUB_CALLBACK_URL=CHANGE_ME
-      - URL_RESOLVER_URL=http://url-resolver:4000
+      - URL_RESOLVER_URL=url-resolver:4000
 
       # Apollo engine
       - ENGINE_API_KEY=CHANGE_ME
@@ -118,7 +118,7 @@ services:
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
       - GITHUB_CALLBACK_URL=CHANGE_ME
-      - URL_RESOLVER_URL=http://url-resolver:4000
+      - URL_RESOLVER_URL=url-resolver:4000
     restart: always
 
   db:

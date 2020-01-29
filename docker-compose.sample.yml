@@ -40,7 +40,7 @@ services:
       - GITHUB_CLIENT_ID=
       - GITHUB_SECRET=
       - GITHUB_CALLBACK_URL=http://localhost:5000/callback/github
-      - URL_RESOLVER_URL=http://url-resolver:4000
+      - URL_RESOLVER_URL=url-resolver:4000
     ports:
       - "5000:5000"
     depends_on:
