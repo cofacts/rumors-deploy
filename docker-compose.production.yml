@@ -27,6 +27,9 @@ services:
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - SERVER_STACKIMPACT_AGENT_KEY=
       - SERVER_STACKIMPACT_APP_NAME=
+      - PM2_PUBLIC_KEY=
+      - PM2_SECRET_KEY=
+      - WEB_CONCURRENCY=1
     restart: always
 
   site-zh:
@@ -41,6 +44,9 @@ services:
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - SERVER_STACKIMPACT_AGENT_KEY=
       - SERVER_STACKIMPACT_APP_NAME=
+      - PM2_PUBLIC_KEY=
+      - PM2_SECRET_KEY=
+      - WEB_CONCURRENCY=2
     restart: always
 
   site-staging-en:
