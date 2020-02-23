@@ -25,7 +25,7 @@ services:
       - PUBLIC_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.g0v.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
-      - PUBLIC_GA_TRACKER=
+      - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
       - SERVER_STACKIMPACT_APP_NAME=
       - PM2_PUBLIC_KEY=
@@ -43,7 +43,7 @@ services:
       - PUBLIC_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.g0v.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
-      - PUBLIC_GA_TRACKER=
+      - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
       - SERVER_STACKIMPACT_APP_NAME=
       - PM2_PUBLIC_KEY=
@@ -60,7 +60,7 @@ services:
       - NODE_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
       - PUBLIC_APP_ID=RUMORS_SITE
-      - PUBLIC_GA_TRACKER=
+      - PUBLIC_GA_TRACKING_ID=
     restart: always
 
   site-staging-zh:
@@ -72,7 +72,7 @@ services:
       - NODE_ENV=production
       - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
       - PUBLIC_APP_ID=RUMORS_SITE
-      - PUBLIC_GA_TRACKER=
+      - PUBLIC_GA_TRACKING_ID=
     restart: always
 
   api:
