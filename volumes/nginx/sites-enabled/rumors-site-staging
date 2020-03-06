@@ -15,6 +15,7 @@ server {
   }
 
   location ~* / {
+    add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging${lang_postfix}:3000;
   }
 

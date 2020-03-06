@@ -5,6 +5,7 @@ server {
   server_name cofacts-api.hacktabl.org;
 
   location ~* {
+    add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://api-staging:5000;
   }
 }
