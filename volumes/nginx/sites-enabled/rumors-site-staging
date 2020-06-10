@@ -7,7 +7,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name cofacts.hacktabl.org;
+  server_name cofacts.hacktabl.org dev.cofacts.org;
 
   location ~* /.well-known/ {
     root /var/www/cofacts/;
