@@ -99,8 +99,8 @@ services:
       - GITHUB_CALLBACK_URL=CHANGE_ME
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
-      - GA_WEB_VIEW_ID=
-      - GA_LINE_VIEW_ID=
+      - GA_WEB_VIEW_ID=CHANGE_ME
+      - GA_LINE_VIEW_ID=CHANGE_ME
 
       # Apollo engine
       - ENGINE_API_KEY=CHANGE_ME
@@ -132,8 +132,8 @@ services:
       - GITHUB_CALLBACK_URL=CHANGE_ME
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
-      - GA_WEB_VIEW_ID=
-      - GA_LINE_VIEW_ID=
+      - GA_WEB_VIEW_ID=CHANGE_ME
+      - GA_LINE_VIEW_ID=CHANGE_ME
     volumes:
       - "./volumes/api:/data"
     restart: always
