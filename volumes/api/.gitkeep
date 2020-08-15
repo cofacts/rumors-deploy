@@ -1,0 +1,4 @@
+This directory will be mounted to `/data` in rumors-api's docker container.
+
+Please put google service account key file (json) in this directory and modify docker-compose.yml's
+GOOGLE_OAUTH_KEY_PATH as needed.
