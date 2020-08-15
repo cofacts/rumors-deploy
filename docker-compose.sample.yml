@@ -41,6 +41,11 @@ services:
       - GITHUB_SECRET=
       - GITHUB_CALLBACK_URL=http://localhost:5000/callback/github
       - URL_RESOLVER_URL=url-resolver:4000
+      - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
+      - GA_WEB_VIEW_ID=
+      - GA_LINE_VIEW_ID=
+    volumes:
+      - "./volumes/api:/data"
     ports:
       - "5000:5000"
     depends_on:
