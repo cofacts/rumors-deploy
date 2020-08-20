@@ -44,6 +44,8 @@ services:
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=
       - GA_LINE_VIEW_ID=
+      - TRUST_PROXY_HEADERS=
+      - COOKIE_SAMESITE_NONE=
     volumes:
       - "./volumes/api:/data"
     ports:
