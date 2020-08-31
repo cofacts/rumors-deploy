@@ -31,9 +31,9 @@ services:
       - PM2_PUBLIC_KEY=
       - PM2_SECRET_KEY=
       - WEB_CONCURRENCY=1
-      - LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
-      - TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
-      - SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
+      - PUBLIC_LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
+      - PUBLIC_TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
+      - PUBLIC_SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
     restart: always
 
   site-zh:
@@ -52,9 +52,9 @@ services:
       - PM2_PUBLIC_KEY=
       - PM2_SECRET_KEY=
       - WEB_CONCURRENCY=2
-      - LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
-      - TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
-      - SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
+      - PUBLIC_LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
+      - PUBLIC_TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
+      - PUBLIC_SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
     restart: always
 
   site-staging-en:
