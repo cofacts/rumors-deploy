@@ -58,6 +58,12 @@ where `<name>` can be `nginx`, `site`, `api` and `db`.
 5 0 * * * cd /home/docker/rumors-deploy; /usr/local/bin/docker-compose exec -T api node build/scripts/cleanupUrls.js >> /var/log/cron.log 2>&1
 ```
 
+Optional mongodb backup
+
+```text
+0 0 * * * docker run -it --rm -v /home/docker/rumors-deploy:/home/rumors-deploy mongo:4.4.2 mongodump --uri="mongodb://<your-mongodb-uri>" --out="/home/rumors-deploy/db-backup/$(date)"
+```
+
 ## Available Scripts
 
 There are some handy scripts under `scripts/` directory:
