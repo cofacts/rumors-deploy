@@ -1,10 +1,5 @@
 proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:50m inactive=7d use_temp_path=off;
 
-map $http_accept_language $lang_postfix {
-  default -en;
-  ~*^zh -zh;
-}
-
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
@@ -31,7 +26,7 @@ server {
 
   location /_next {
     proxy_cache STATIC;
-    proxy_pass http://site${lang_postfix}:3000;
+    proxy_pass http://site-zh:3000;
     add_header X-Cache-Status $upstream_cache_status;
   }
 
@@ -55,7 +50,7 @@ server {
     proxy_redirect off;
     proxy_read_timeout 240s;
 
-    proxy_pass http://site${lang_postfix}:3000;
+    proxy_pass http://site-zh:3000;
   }
 
   location ~ /.well-known {
@@ -72,7 +67,7 @@ server {
 
   location /_next {
     proxy_cache STATIC;
-    proxy_pass http://site${lang_postfix}:3000;
+    proxy_pass http://site-zh:3000;
     add_header X-Cache-Status $upstream_cache_status;
   }
 
@@ -95,6 +90,6 @@ server {
     proxy_max_temp_file_size 0;
     proxy_redirect off;
     proxy_read_timeout 240s;
-    proxy_pass http://site${lang_postfix}:3000;
+    proxy_pass http://site-zh:3000;
   }
 }
