@@ -1,31 +1,41 @@
-map $http_accept_language $lang_postfix {
-  default -en;
-  ~*^zh -zh;
-}
-
+# zh_TW
 server {
   listen 80;
   listen [::]:80;
 
-  server_name cofacts.hacktabl.org dev.cofacts.org;
+  server_name cofacts.hacktabl.org dev.cofacts.org dev-zh.cofacts.org;
 
-  location ~* /.well-known/ {
-    root /var/www/cofacts/;
-    #try_files $uri /;
+  include ../include/server.conf;
+
+  location /_next {
+    include ../include/next.conf;
+    proxy_pass http://site-staging-zh:3000;
   }
 
-  location ~* / {
+  location / {
+    include ../include/index.conf;
     add_header X-Robots-Tag "noindex, nofollow";
-    proxy_pass http://site-staging${lang_postfix}:3000;
+    proxy_pass http://site-staging-zh:3000;
+  }
+}
+
+# en
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name en.cofacts.hacktabl.org dev-en.cofacts.org;
+
+  include ../include/server.conf;
+
+  location /_next {
+    include ../include/next.conf;
+    proxy_pass http://site-staging-en:3000;
   }
 
-  location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
-    expires 1M;
-    add_header Cache-Control "public";
-  }
-
-  location ~* \.(?:css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public";
+  location / {
+    include ../include/index.conf;
+    add_header X-Robots-Tag "noindex, nofollow";
+    proxy_pass http://site-staging-en:3000;
   }
 }
