@@ -9,6 +9,7 @@ services:
     volumes:
       - "./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
       - "./volumes/nginx/sites-enabled:/etc/nginx/sites-enabled:ro"
+      - "./volumes/nginx/include:/etc/nginx/include:ro"
       - "/var/www/cofacts:/var/www/cofacts:ro"
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
       - "/etc/ssl/certs:/etc/ssl/certs:ro"
