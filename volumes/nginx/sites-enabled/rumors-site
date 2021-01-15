@@ -67,6 +67,8 @@ server {
   listen [::]:80;
   server_name en.cofacts.org;
 
+  include ../include/server.conf;
+
   location /_next {
     include ../include/next.conf;
     proxy_pass http://site-en:3000;
