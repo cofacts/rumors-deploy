@@ -33,7 +33,12 @@ server {
 
   location / {
     include ../include/index.conf;
+    include ../include/index-prod.conf;
+
     proxy_pass http://site-zh:3000;
+
+    # Canonical to dev.cofacts.tw
+    add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 
   location ~ /.well-known {
@@ -57,7 +62,12 @@ server {
 
   location / {
     include ../include/index.conf;
+    include ../include/index-prod.conf;
+
     proxy_pass http://site-zh:3000;
+
+    # Canonical to cofacts.tw
+    add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }
 
@@ -76,6 +86,11 @@ server {
 
   location / {
     include ../include/index.conf;
+    include ../include/index-prod.conf;
+
     proxy_pass http://site-en:3000;
+
+    # Canonical to en.cofacts.tw
+    add_header Link "<https://en.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }

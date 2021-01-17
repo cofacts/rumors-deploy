@@ -14,10 +14,13 @@ server {
 
   location / {
     include ../include/index.conf;
+    include ../include/index-staging.conf;
+
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-zh:3000;
 
-    add_header Link "<https://dev-en.cofacts.tw$request_uri>; rel=\"alternate\"; hreflang=\"en\"";
+    # Canonical to dev.cofacts.tw
+    add_header Link "<https://dev.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }
 
@@ -37,9 +40,12 @@ server {
 
   location / {
     include ../include/index.conf;
+    include ../include/index-staging.conf;
+
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-en:3000;
 
-    add_header Link "<https://dev.cofacts.tw$request_uri>; rel=\"alternate\"; hreflang=\"zh\"";
+    # Canonical to dev-en.cofacts.tw
+    add_header Link "<https://dev-en.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }
