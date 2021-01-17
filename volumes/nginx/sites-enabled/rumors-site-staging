@@ -3,7 +3,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name cofacts.hacktabl.org dev.cofacts.org dev-zh.cofacts.org;
+  server_name cofacts.hacktabl.org dev.cofacts.org dev.cofacts.tw;
 
   include ../include/server.conf;
 
@@ -24,7 +24,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name en.cofacts.hacktabl.org dev-en.cofacts.org;
+  server_name en.cofacts.hacktabl.org dev-en.cofacts.org  dev-en.cofacts.tw;
 
   include ../include/server.conf;
 

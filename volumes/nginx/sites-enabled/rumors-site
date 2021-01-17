@@ -6,7 +6,7 @@ server {
   return 301 https://$host$request_uri;
 }
 
-# cofacts.g0v.tw with self-managed SSL
+# zh_TW, cofacts.g0v.tw with self-managed SSL
 server {
   listen 443 ssl;
   server_name cofacts.g0v.tw;
@@ -42,11 +42,11 @@ server {
   }
 }
 
-# zh_TW
+# zh_TW, SSL managed by Cloudflare
 server {
   listen 80;
   listen [::]:80;
-  server_name cofacts.org www.cofacts.org zh.cofacts.org;
+  server_name cofacts.org cofacts.tw;
 
   include ../include/server.conf;
 
@@ -65,7 +65,7 @@ server {
 server {
   listen 80;
   listen [::]:80;
-  server_name en.cofacts.org;
+  server_name en.cofacts.org en.cofacts.tw;
 
   include ../include/server.conf;
 
