@@ -16,6 +16,8 @@ server {
     include ../include/index.conf;
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-zh:3000;
+
+    add_header Link "<https://dev-en.cofacts.tw$request_uri>; rel=\"alternate\"; hreflang=\"en\"";
   }
 }
 
@@ -37,5 +39,7 @@ server {
     include ../include/index.conf;
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-en:3000;
+
+    add_header Link "<https://dev.cofacts.tw$request_uri>; rel=\"alternate\"; hreflang=\"zh\"";
   }
 }
