@@ -2,7 +2,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name cofacts-api.hacktabl.org dev-api.cofacts.org;
+  server_name dev-api.cofacts.org dev-api.cofacts.tw;
 
   location ~* {
     add_header X-Robots-Tag "noindex, nofollow";
