@@ -37,7 +37,7 @@ server {
 
     proxy_pass http://site-zh:3000;
 
-    # Canonical to dev.cofacts.tw
+    # Canonical to cofacts.tw
     add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 
