@@ -1,10 +1,4 @@
-proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:50m inactive=7d use_temp_path=off;
-
-map $http_accept_language $lang_postfix {
-  default -en;
-  ~*^zh -zh;
-}
-
+# http cofacts.g0v.tw --> https
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
@@ -12,6 +6,7 @@ server {
   return 301 https://$host$request_uri;
 }
 
+# zh_TW, cofacts.g0v.tw with self-managed SSL
 server {
   listen 443 ssl;
   server_name cofacts.g0v.tw;
@@ -29,33 +24,21 @@ server {
   ssl_stapling_verify on;
   add_header Strict-Transport-Security max-age=15768000;
 
+  include ../include/server.conf;
+
   location /_next {
-    proxy_cache STATIC;
-    proxy_pass http://site${lang_postfix}:3000;
-    add_header X-Cache-Status $upstream_cache_status;
-  }
-
-  location /analytics {
-    return 303 https://datastudio.google.com/open/18J8jZYumsoaCPBk9bdRd97GKvi_W5v-r;
-  }
-
-  location /hack {
-    return 303 https://beta.hackfoldr.org/1yXwRJwFNFHNJibKENnLCAV5xB8jnUvEwY_oUq-KcETU;
+    include ../include/next.conf;
+    proxy_pass http://site-zh:3000;
   }
 
   location / {
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header Host $host;
-    proxy_set_header X-NginX-Proxy true;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_http_version 1.1;
-    proxy_max_temp_file_size 0;
-    proxy_redirect off;
-    proxy_read_timeout 240s;
+    include ../include/index.conf;
+    include ../include/index-prod.conf;
 
-    proxy_pass http://site${lang_postfix}:3000;
+    proxy_pass http://site-zh:3000;
+
+    # Canonical to cofacts.tw
+    add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 
   location ~ /.well-known {
@@ -64,37 +47,50 @@ server {
   }
 }
 
+# zh_TW, SSL managed by Cloudflare
 server {
-
   listen 80;
   listen [::]:80;
-  server_name cofacts.org www.cofacts.org;
+  server_name cofacts.org cofacts.tw;
+
+  include ../include/server.conf;
 
   location /_next {
-    proxy_cache STATIC;
-    proxy_pass http://site${lang_postfix}:3000;
-    add_header X-Cache-Status $upstream_cache_status;
-  }
-
-  location /analytics {
-    return 303 https://datastudio.google.com/open/18J8jZYumsoaCPBk9bdRd97GKvi_W5v-r;
-  }
-
-  location /hack {
-    return 303 https://beta.hackfoldr.org/1yXwRJwFNFHNJibKENnLCAV5xB8jnUvEwY_oUq-KcETU;
+    include ../include/next.conf;
+    proxy_pass http://site-zh:3000;
   }
 
   location / {
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header Host $host;
-    proxy_set_header X-NginX-Proxy true;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_http_version 1.1;
-    proxy_max_temp_file_size 0;
-    proxy_redirect off;
-    proxy_read_timeout 240s;
-    proxy_pass http://site${lang_postfix}:3000;
+    include ../include/index.conf;
+    include ../include/index-prod.conf;
+
+    proxy_pass http://site-zh:3000;
+
+    # Canonical to cofacts.tw
+    add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
+  }
+}
+
+# en
+server {
+  listen 80;
+  listen [::]:80;
+  server_name en.cofacts.org en.cofacts.tw;
+
+  include ../include/server.conf;
+
+  location /_next {
+    include ../include/next.conf;
+    proxy_pass http://site-en:3000;
+  }
+
+  location / {
+    include ../include/index.conf;
+    include ../include/index-prod.conf;
+
+    proxy_pass http://site-en:3000;
+
+    # Canonical to en.cofacts.tw
+    add_header Link "<https://en.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }

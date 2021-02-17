@@ -1,31 +1,51 @@
-map $http_accept_language $lang_postfix {
-  default -en;
-  ~*^zh -zh;
-}
-
+# zh_TW
 server {
   listen 80;
   listen [::]:80;
 
-  server_name cofacts.hacktabl.org dev.cofacts.org;
+  server_name cofacts.hacktabl.org dev.cofacts.org dev.cofacts.tw;
 
-  location ~* /.well-known/ {
-    root /var/www/cofacts/;
-    #try_files $uri /;
+  include ../include/server.conf;
+
+  location /_next {
+    include ../include/next.conf;
+    proxy_pass http://site-staging-zh:3000;
   }
 
-  location ~* / {
+  location / {
+    include ../include/index.conf;
+    include ../include/index-staging.conf;
+
     add_header X-Robots-Tag "noindex, nofollow";
-    proxy_pass http://site-staging${lang_postfix}:3000;
+    proxy_pass http://site-staging-zh:3000;
+
+    # Canonical to dev.cofacts.tw
+    add_header Link "<https://dev.cofacts.tw$request_uri>; rel=\"canonical\"";
+  }
+}
+
+# en
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name en.cofacts.hacktabl.org dev-en.cofacts.org  dev-en.cofacts.tw;
+
+  include ../include/server.conf;
+
+  location /_next {
+    include ../include/next.conf;
+    proxy_pass http://site-staging-en:3000;
   }
 
-  location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
-    expires 1M;
-    add_header Cache-Control "public";
-  }
+  location / {
+    include ../include/index.conf;
+    include ../include/index-staging.conf;
 
-  location ~* \.(?:css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public";
+    add_header X-Robots-Tag "noindex, nofollow";
+    proxy_pass http://site-staging-en:3000;
+
+    # Canonical to dev-en.cofacts.tw
+    add_header Link "<https://dev-en.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }
