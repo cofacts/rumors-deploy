@@ -5,16 +5,16 @@ server {
 
   server_name cofacts.hacktabl.org dev.cofacts.org dev.cofacts.tw;
 
-  include ../include/server.conf;
+  include include/server.conf;
 
   location /_next {
-    include ../include/next.conf;
+    include include/next.conf;
     proxy_pass http://site-staging-zh:3000;
   }
 
   location / {
-    include ../include/index.conf;
-    include ../include/index-staging.conf;
+    include include/index.conf;
+    include include/index-staging.conf;
 
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-zh:3000;
@@ -31,16 +31,16 @@ server {
 
   server_name en.cofacts.hacktabl.org dev-en.cofacts.org  dev-en.cofacts.tw;
 
-  include ../include/server.conf;
+  include include/server.conf;
 
   location /_next {
-    include ../include/next.conf;
+    include include/next.conf;
     proxy_pass http://site-staging-en:3000;
   }
 
   location / {
-    include ../include/index.conf;
-    include ../include/index-staging.conf;
+    include include/index.conf;
+    include include/index-staging.conf;
 
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://site-staging-en:3000;
