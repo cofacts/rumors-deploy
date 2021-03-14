@@ -61,8 +61,14 @@ where `<name>` can be `nginx`, `site`, `api` and `db`.
 Optional mongodb backup
 
 ```text
-0 0 * * * docker run -it --rm -v /home/docker/rumors-deploy:/home/rumors-deploy mongo:4.4.2 mongodump --uri="mongodb://<your-mongodb-uri>" --out="/home/rumors-deploy/db-backup/$(date)"
+0 0 * * * docker run -it --rm -v <key-file-for-gcs>:/home/db-backup/key.json \
+  --env GCP_PROJECT_ID=<project-id> \
+  --env GCS_BUCKET=<bucket> \
+  --env MONGOURI=mongodb+srv://<username>:<password>@<host>/<db> \
+  cofacts/mongodb-gsutil
 ```
+
+To see [cofacts/mongodb-gsutil](https://github.com/cofacts/mongodb-gsutil).
 
 ## Available Scripts
 
