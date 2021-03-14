@@ -24,16 +24,16 @@ server {
   ssl_stapling_verify on;
   add_header Strict-Transport-Security max-age=15768000;
 
-  include ../include/server.conf;
+  include include/server.conf;
 
   location /_next {
-    include ../include/next.conf;
+    include include/next.conf;
     proxy_pass http://site-zh:3000;
   }
 
   location / {
-    include ../include/index.conf;
-    include ../include/index-prod.conf;
+    include include/index.conf;
+    include include/index-prod.conf;
 
     proxy_pass http://site-zh:3000;
 
@@ -53,16 +53,16 @@ server {
   listen [::]:80;
   server_name cofacts.org cofacts.tw;
 
-  include ../include/server.conf;
+  include include/server.conf;
 
   location /_next {
-    include ../include/next.conf;
+    include include/next.conf;
     proxy_pass http://site-zh:3000;
   }
 
   location / {
-    include ../include/index.conf;
-    include ../include/index-prod.conf;
+    include include/index.conf;
+    include include/index-prod.conf;
 
     proxy_pass http://site-zh:3000;
 
@@ -77,16 +77,16 @@ server {
   listen [::]:80;
   server_name en.cofacts.org en.cofacts.tw;
 
-  include ../include/server.conf;
+  include include/server.conf;
 
   location /_next {
-    include ../include/next.conf;
+    include include/next.conf;
     proxy_pass http://site-en:3000;
   }
 
   location / {
-    include ../include/index.conf;
-    include ../include/index-prod.conf;
+    include include/index.conf;
+    include include/index-prod.conf;
 
     proxy_pass http://site-en:3000;
 
