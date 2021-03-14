@@ -108,9 +108,8 @@ services:
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
-      - GA_WEB_TIMEZONE=+08:00
       - GA_LINE_VIEW_ID=CHANGE_ME
-      - GA_LINE_TIMEZONE=+08:00
+      - TIMEZONE=+08:00
       - TRUST_PROXY_HEADERS=1
       - COOKIE_SAMESITE_NONE=1
       # Apollo engine
@@ -145,9 +144,8 @@ services:
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
-      - GA_WEB_TIMEZONE=+08:00
       - GA_LINE_VIEW_ID=CHANGE_ME
-      - GA_LINE_TIMEZONE=+08:00
+      - TIMEZONE=+08:00
       - TRUST_PROXY_HEADERS=1
       - COOKIE_SAMESITE_NONE=1
     volumes:
