@@ -3,3 +3,7 @@ volumes/db-staging/*
 volumes/db-sample/*
 !.gitkeep
 docker-compose.yml
+
+# For mongodump output directory
+db-backup/*
+!db-backup/.gitkeep
