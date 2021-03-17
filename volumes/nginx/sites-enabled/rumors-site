@@ -51,7 +51,7 @@ server {
 server {
   listen 80;
   listen [::]:80;
-  server_name cofacts.org cofacts.tw;
+  server_name cofacts.tw cofacts.org www.cofacts.org;
 
   include include/server.conf;
 
