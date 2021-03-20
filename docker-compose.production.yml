@@ -24,7 +24,7 @@ services:
       - SERVER_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_ENV=production
-      - PUBLIC_API_URL=https://cofacts-api.g0v.tw
+      - PUBLIC_API_URL=https://api.cofacts.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
@@ -45,7 +45,7 @@ services:
       - SERVER_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_ENV=production
-      - PUBLIC_API_URL=https://cofacts-api.g0v.tw
+      - PUBLIC_API_URL=https://api.cofacts.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
@@ -65,7 +65,7 @@ services:
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
-      - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
+      - PUBLIC_API_URL=https://dev.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -77,7 +77,7 @@ services:
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
-      - PUBLIC_API_URL=https://cofacts-api.hacktabl.org
+      - PUBLIC_API_URL=https://dev.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -93,18 +93,18 @@ services:
       - ROLLBAR_ENV=production
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.g0v.tw,https://cofacts.org,https://old.cofacts.org,https://en.cofacts.org,https://cofacts.tw,https://en.cofacts.tw,https://rumors-line-bot.herpkuapp.com
+      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.tw,https://en.cofacts.tw,https://cofacts.g0v.tw,https://cofacts.org,https://old.cofacts.org,https://en.cofacts.org
       - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot.herokuapp.com
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
       - FACEBOOK_APP_ID=CHANGE_ME
       - FACEBOOK_SECRET=CHANGE_ME
-      - FACEBOOK_CALLBACK_URL=CHANGE_ME
+      - FACEBOOK_CALLBACK_URL=https://api.cofacts.tw/callback/facebook
       - TWITTER_CONSUMER_KEY=CHANGE_ME
       - TWITTER_CONSUMER_SECRET=CHANGE_ME
-      - TWITTER_CALLBACK_URL=CHANGE_ME
+      - TWITTER_CALLBACK_URL=https://api.cofacts.tw/callback/twitter
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
-      - GITHUB_CALLBACK_URL=CHANGE_ME
+      - GITHUB_CALLBACK_URL=https://api.cofacts.tw/callback/github
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
@@ -129,18 +129,18 @@ services:
       - ROLLBAR_ENV=staging
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.hacktabl.org,https://dev.cofacts.org,https://dev.cofacts.tw,https://dev-en.cofacts.org,https://dev-en.cofacts.tw,http://localhost:3000
+      - RUMORS_SITE_CORS_ORIGIN=https://dev.cofacts.tw,https://dev.cofacts.org,https://dev-en.cofacts.org,https://dev-en.cofacts.tw,http://localhost:3000
       - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot-staging.herokuapp.com,http://localhost:5001
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
       - FACEBOOK_APP_ID=CHANGE_ME
       - FACEBOOK_SECRET=CHANGE_ME
-      - FACEBOOK_CALLBACK_URL=CHANGE_ME
+      - FACEBOOK_CALLBACK_URL=https://dev-api.cofacts.tw/callback/facebook
       - TWITTER_CONSUMER_KEY=CHANGE_ME
       - TWITTER_CONSUMER_SECRET=CHANGE_ME
-      - TWITTER_CALLBACK_URL=CHANGE_ME
+      - TWITTER_CALLBACK_URL=https://dev-api.cofacts.tw/callback/twitter
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
-      - GITHUB_CALLBACK_URL=CHANGE_ME
+      - GITHUB_CALLBACK_URL=https://dev-api.cofacts.tw/callback/github
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
