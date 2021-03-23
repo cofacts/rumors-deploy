@@ -30,6 +30,7 @@ services:
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
       - RUMORS_SITE_CORS_ORIGIN=http://localhost:3000
+      - RUMORS_SITE_REDIRECT_ORIGIN=http://localhost:3000
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
       - FACEBOOK_APP_ID=
       - FACEBOOK_SECRET=
