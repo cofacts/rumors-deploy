@@ -45,7 +45,7 @@ server {
 
 server {
   listen 80;
-  server_name api.cofacts.org;
+  server_name api.cofacts.org api.cofacts.tw;
 
   # https managed by cloudflare
 
