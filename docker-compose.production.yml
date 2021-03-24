@@ -65,7 +65,7 @@ services:
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
-      - PUBLIC_API_URL=https://dev.cofacts.tw
+      - PUBLIC_API_URL=https://dev-api.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -77,7 +77,7 @@ services:
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
-      - PUBLIC_API_URL=https://dev.cofacts.tw
+      - PUBLIC_API_URL=https://dev-api.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
