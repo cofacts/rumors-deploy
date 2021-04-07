@@ -106,6 +106,12 @@ services:
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
       - GITHUB_CALLBACK_URL=https://api.cofacts.tw/callback/github
+      - GOOGLE_CLIENT_ID=CHANGE_ME
+      - GOOGLE_SECRET=CHANGE_ME
+      - GOOGLE_CALLBACK_URL=https://api.cofacts.tw/callback/google
+      - INSTAGRAM_CLIENT_ID=CHANGE_ME
+      - INSTAGRAM_SECRET=CHANGE_ME
+      - INSTAGRAM_CALLBACK_URL=https://api.cofacts.tw/callback/instagram
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
@@ -143,6 +149,12 @@ services:
       - GITHUB_CLIENT_ID=CHANGE_ME
       - GITHUB_SECRET=CHANGE_ME
       - GITHUB_CALLBACK_URL=https://dev-api.cofacts.tw/callback/github
+      - GOOGLE_CLIENT_ID=CHANGE_ME
+      - GOOGLE_SECRET=CHANGE_ME
+      - GOOGLE_CALLBACK_URL=https://dev-api.cofacts.tw/callback/google
+      - INSTAGRAM_CLIENT_ID=CHANGE_ME
+      - INSTAGRAM_SECRET=CHANGE_ME
+      - INSTAGRAM_CALLBACK_URL=https://dev-api.cofacts.tw/callback/instagram
       - URL_RESOLVER_URL=url-resolver:4000
       - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
       - GA_WEB_VIEW_ID=CHANGE_ME
