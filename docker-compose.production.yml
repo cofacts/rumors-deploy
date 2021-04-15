@@ -59,7 +59,7 @@ services:
     restart: always
 
   site-staging-en:
-    image: cofacts/rumors-site:dev-en
+    image: cofacts/rumors-site:latest-en
     environment:
       - PORT=3000
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
@@ -71,7 +71,7 @@ services:
     restart: always
 
   site-staging-zh:
-    image: cofacts/rumors-site:dev-tw
+    image: cofacts/rumors-site:latest-tw
     environment:
       - PORT=3000
       - ROLLBAR_SERVER_TOKEN=CHANGE_ME
@@ -126,7 +126,7 @@ services:
     restart: always
 
   api-staging:
-    image: cofacts/rumors-api:staging
+    image: cofacts/rumors-api
     environment:
       - ELASTICSEARCH_URL=http://db-staging:9200
       - ELASTIC_LOG_LEVEL=info
