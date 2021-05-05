@@ -103,6 +103,18 @@ services:
       - PUBLIC_GA_TRACKING_ID=
     restart: always
 
+  site-staging-ja:
+    image: cofacts/rumors-site:latest-ja
+    environment:
+      - PORT=3000
+      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
+      - ROLLBAR_ENV=staging
+      - NODE_ENV=production
+      - PUBLIC_API_URL=https://dev-api.cofacts.tw
+      - PUBLIC_APP_ID=RUMORS_SITE
+      - PUBLIC_GA_TRACKING_ID=
+    restart: always
+
   api:
     image: cofacts/rumors-api
     environment:
