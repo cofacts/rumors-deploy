@@ -49,3 +49,29 @@ server {
     add_header Link "<https://dev-en.cofacts.tw$request_uri>; rel=\"canonical\"";
   }
 }
+
+# ja
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name dev-ja.cofacts.tw;
+
+  include include/server.conf;
+
+  location /_next {
+    include include/next.conf;
+    proxy_pass http://site-staging-ja:3000;
+  }
+
+  location / {
+    include include/index.conf;
+    include include/index-staging.conf;
+
+    add_header X-Robots-Tag "noindex, nofollow";
+    proxy_pass http://site-staging-ja:3000;
+
+    # Canonical to dev-ja.cofacts.tw
+    add_header Link "<https://dev-ja.cofacts.tw$request_uri>; rel=\"canonical\"";
+  }
+}
