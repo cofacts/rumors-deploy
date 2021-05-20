@@ -74,7 +74,7 @@ services:
       - ROLLBAR_TOKEN=
       - ROLLBAR_ENV=production
 
-  line-bot:
+  line-bot-zh:
     image: cofacts/rumors-line-bot:dev
     environment:
       # Build-time variables

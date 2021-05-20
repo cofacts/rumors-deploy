@@ -162,6 +162,10 @@ services:
       - DAILOGFLOW_ENV=
       - JOBQUEUE_CONCURRENCY=3
 
+  vector:
+    image: timberio/vector
+    volumes:
+      - "./volumes/vector:/etc/vector"
 
   api:
     image: cofacts/rumors-api
