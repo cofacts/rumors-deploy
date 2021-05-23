@@ -8,8 +8,8 @@ We provides 2 versions of docker-compose.yml:
 
 - `docker-compose.sample.yml`: Minimal setup to get all Cofacts service running on a single computer.
 - `docker-compose.production.yml`: The actual setup (with secrets redacted) that is running on cofacts.g0v.tw . The differences are:
-  - We run production LINE bot service on heroku, thus there is no `line-bot` and `redis` in `docker-compose.production.yml`
-  - Additionally, `nginx` is added as a reverse-proxy and serves https certificates.
+  - `nginx` is added as a reverse-proxy and serves https certificates.
+  - `line-bot-zh` will be connected to AWS Cloudwatch logs, so you may need to [setup AWS credential accordingly](https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/).
 
 Before moving to next step, you are expected to create your own `docker-compose.yml` using the above mentioned file as reference.
 
