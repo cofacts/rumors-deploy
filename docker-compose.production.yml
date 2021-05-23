@@ -117,14 +117,16 @@ services:
 
   line-bot-zh:
     image: cofacts/rumors-line-bot:latest-tw
+    depends_on:
+      - redis
     logging:
       # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
       # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
       driver: awslogs
       options:
-        awslogs-region: ap-northeast-1
-        awslogs-group: rumors-line-bot-production
-        awslogs-stream: zh
+        awslogs-region: <aws-region>
+        awslogs-group: <aws-log-group>
+        awslogs-stream: <aws-stream-name>
     environment:
       # Build-time variables
       - LOCALE=zh_TW
