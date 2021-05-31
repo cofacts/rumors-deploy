@@ -24,6 +24,7 @@ Explanation of each environment variables are in `.env.sample` of the correspond
 
 0. `su` to appropriate user (for instance, `docker`)
 1. Clone this repo on production server
+2. Make a duplicate of `env-files.sample` directory and rename to `env-files`
 2. Make necessary changes to `docker-compose.yml` and files in `volumes/`
 3. `docker-compose up -d`
 

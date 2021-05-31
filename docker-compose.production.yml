@@ -118,6 +118,7 @@ services:
   line-bot-zh:
     image: cofacts/rumors-line-bot:latest-tw
     depends_on:
+      - api
       - redis
     logging:
       # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
@@ -127,50 +128,8 @@ services:
         awslogs-region: <aws-region>
         awslogs-group: <aws-log-group>
         awslogs-stream: <aws-stream-name>
-    environment:
-      # Build-time variables
-      - LOCALE=zh_TW
-      - ROLLBAR_ENV=localhost
-      - ROLLBAR_CLIENT_TOKEN=
-      - GA_ID=
-      - LIFF_URL=https://liff.line.me/<liff-id>
-      - APP_ID=RUMORS_LINE_BOT
-      - API_URL=https://api.cofacts.org/graphql
-      - SITE_URLS=https://cofacts.org,http://cofacts.org,https://cofacts.tw,https://cofacts.g0v.tw
-
-      # Runtime secrets
-      - LINE_CHANNEL_SECRET=
-      - LINE_CHANNEL_TOKEN=
-      - LINE_LOGIN_CHANNEL_ID=
-      - REDIS_URL=redis://redis:6379
-      - PORT=5001
-      - ROLLBAR_TOKEN=
-
-      # This should match rumors-api's RUMORS_LINE_BOT_SECRET
-      - APP_SECRET=CHANGE_ME
-      - GOOGLE_CREDENTIALS=
-      - GOOGLE_DRIVE_IMAGE_FOLDER=
-      - USERID_BLACKLIST=
-      - FACEBOOK_APP_ID=719656818195367
-      - IMAGE_MESSAGE_ENABLED=false
-      - MAX_IMAGE_PROCESS_NUMBER=3
-      - LIFF_DEV_PORT=8080
-      - JWT_SECRET=secret
-      - MONGODB_URI=mongodb://root:root-test-password@mongo:27017/cofacts?authSource=admin
-      - NOTIFY_METHOD=PUSH_MESSAGE
-      - LINE_NOTIFY_CLIENT_ID=
-      - LINE_NOTIFY_CLIENT_SECRET=
-      - RUMORS_LINE_BOT_URL=
-      # For query ListReplies form lastSacnAt to current+buffer
-      #{"years": 2, "months": 9, "weeks": 1, "days": 7, "hours": 5, "minutes": 9, "seconds": 30,}
-      - REVIEW_REPLY_BUFFER={"seconds":0,"minutes":0,"hours":-12,"days":0}
-      - LINE_FRIEND_URL=https://line.me/R/ti/p/@cofacts
-      - DAILOGFLOW_CLIENT_EMAIL=
-      - DAILOGFLOW_PRIVATE_KEY=
-      - DAILOGFLOW_PROJECT_ID=
-      - DAILOGFLOW_LANGUAGE=
-      - DAILOGFLOW_ENV=
-      - JOBQUEUE_CONCURRENCY=3
+    env_file:
+      - ./env-files/line-bot-zh
 
   api:
     image: cofacts/rumors-api
