@@ -7,3 +7,5 @@ docker-compose.yml
 # For mongodump output directory
 db-backup/*
 !db-backup/.gitkeep
+data
+env-files

@@ -115,6 +115,22 @@ services:
       - PUBLIC_GA_TRACKING_ID=
     restart: always
 
+  line-bot-zh:
+    image: cofacts/rumors-line-bot:latest-tw
+    depends_on:
+      - api
+      - redis
+    logging:
+      # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
+      # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
+      driver: awslogs
+      options:
+        awslogs-region: <aws-region>
+        awslogs-group: <aws-log-group>
+        awslogs-stream: <aws-stream-name>
+    env_file:
+      - ./env-files/line-bot-zh
+
   api:
     image: cofacts/rumors-api
     environment:
@@ -241,3 +257,9 @@ services:
 
       # Apollo engine
       - ENGINE_API_KEY=CHANGE_ME
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - "./volumes/redis/redis.conf:/usr/local/etc/redis/redis.conf"
+    command: redis-server /usr/local/etc/redis/redis.conf
