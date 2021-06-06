@@ -1,7 +1,7 @@
 # zh_TW
 server {
   listen 80;
-  server_name line-bot.cofacts.org;
+  server_name line-bot.cofacts.tw;
 
   # https managed by cloudflare
 
