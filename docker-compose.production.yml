@@ -150,6 +150,7 @@ services:
       - LINE_CHANNEL_SECRET=
       - LINE_CHANNEL_TOKEN=
       - LINE_LOGIN_CHANNEL_ID=
+      - LIFF_URL=
 
   line-bot-ja:
     image: cofacts/rumors-line-bot:latest-ja
@@ -170,6 +171,7 @@ services:
       - LINE_CHANNEL_SECRET=
       - LINE_CHANNEL_TOKEN=
       - LINE_LOGIN_CHANNEL_ID=
+      - LIFF_URL=
 
   api:
     image: cofacts/rumors-api
