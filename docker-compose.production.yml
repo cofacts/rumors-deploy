@@ -131,6 +131,52 @@ services:
     env_file:
       - ./env-files/line-bot-zh
 
+  line-bot-en:
+    image: cofacts/rumors-line-bot:latest-en
+    depends_on:
+      - api
+      - redis
+    logging:
+      # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
+      # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
+      driver: awslogs
+      options:
+        awslogs-region: <aws-region>
+        awslogs-group: <aws-log-group>
+        awslogs-stream: <aws-stream-name>
+    env_file:
+      - ./env-files/line-bot-zh
+    environment: # override line-bot-zh
+      - LINE_CHANNEL_SECRET=
+      - LINE_CHANNEL_TOKEN=
+      - LINE_LOGIN_CHANNEL_ID=
+      - LIFF_URL=
+      - SITE_URLS=https://en.cofacts.tw
+      - RUMORS_LINE_BOT_URL=
+
+  line-bot-ja:
+    image: cofacts/rumors-line-bot:latest-ja
+    depends_on:
+      - api
+      - redis
+    logging:
+      # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
+      # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
+      driver: awslogs
+      options:
+        awslogs-region: <aws-region>
+        awslogs-group: <aws-log-group>
+        awslogs-stream: <aws-stream-name>
+    env_file:
+      - ./env-files/line-bot-zh
+    environment: # override line-bot-zh
+      - LINE_CHANNEL_SECRET=
+      - LINE_CHANNEL_TOKEN=
+      - LINE_LOGIN_CHANNEL_ID=
+      - LIFF_URL=
+      - SITE_URLS=https://ja.cofacts.tw
+      - RUMORS_LINE_BOT_URL=
+
   api:
     image: cofacts/rumors-api
     environment:
