@@ -151,6 +151,8 @@ services:
       - LINE_CHANNEL_TOKEN=
       - LINE_LOGIN_CHANNEL_ID=
       - LIFF_URL=
+      - SITE_URLS=https://en.cofacts.tw
+      - RUMORS_LINE_BOT_URL=
 
   line-bot-ja:
     image: cofacts/rumors-line-bot:latest-ja
@@ -172,6 +174,8 @@ services:
       - LINE_CHANNEL_TOKEN=
       - LINE_LOGIN_CHANNEL_ID=
       - LIFF_URL=
+      - SITE_URLS=https://ja.cofacts.tw
+      - RUMORS_LINE_BOT_URL=
 
   api:
     image: cofacts/rumors-api
