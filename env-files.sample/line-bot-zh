@@ -5,8 +5,8 @@ ROLLBAR_CLIENT_TOKEN=
 GA_ID=
 LIFF_URL=https://liff.line.me/<liff-id>
 APP_ID=RUMORS_LINE_BOT
-API_URL=https://api.cofacts.org/graphql
-SITE_URLS=https://cofacts.org,http://cofacts.org,https://cofacts.tw,https://cofacts.g0v.tw
+API_URL=https://api.cofacts.tw/graphql
+SITE_URLS=http://cofacts.tw,https://cofacts.g0v.tw
 
 # Runtime secrets
 LINE_CHANNEL_SECRET=
