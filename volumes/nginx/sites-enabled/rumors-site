@@ -1,9 +1,9 @@
-# http cofacts.g0v.tw --> https
+# http://cofacts.g0v.tw --> https://cofacts.tw
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
   server_name cofacts.g0v.tw;
-  return 301 https://$host$request_uri;
+  return 301 https://cofacts.tw$request_uri;
 }
 
 # zh_TW, cofacts.g0v.tw with self-managed SSL
@@ -24,21 +24,8 @@ server {
   ssl_stapling_verify on;
   add_header Strict-Transport-Security max-age=15768000;
 
-  include include/server.conf;
-
-  location /_next {
-    include include/next.conf;
-    proxy_pass http://site-zh:3000;
-  }
-
   location / {
-    include include/index.conf;
-    include include/index-prod.conf;
-
-    proxy_pass http://site-zh:3000;
-
-    # Canonical to cofacts.tw
-    add_header Link "<https://cofacts.tw$request_uri>; rel=\"canonical\"";
+    return 302 https://cofacts.tw$request_uri;
   }
 
   location ~ /.well-known {
