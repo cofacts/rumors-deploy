@@ -25,7 +25,7 @@ server {
   add_header Strict-Transport-Security max-age=15768000;
 
   location / {
-    return 302 https://cofacts.tw$request_uri;
+    return 301 https://cofacts.tw$request_uri;
   }
 
   location ~ /.well-known {
