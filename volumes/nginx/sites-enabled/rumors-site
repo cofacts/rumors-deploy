@@ -51,7 +51,7 @@ server {
 server {
   listen 80;
   listen [::]:80;
-  server_name cofacts.tw cofacts.org www.cofacts.org;
+  server_name cofacts.tw;
 
   include include/server.conf;
 
@@ -75,7 +75,7 @@ server {
 server {
   listen 80;
   listen [::]:80;
-  server_name en.cofacts.org en.cofacts.tw;
+  server_name en.cofacts.tw;
 
   include include/server.conf;
 
@@ -99,7 +99,7 @@ server {
 server {
   listen 80;
   listen [::]:80;
-  server_name ja.cofacts.org ja.cofacts.tw;
+  server_name ja.cofacts.tw;
 
   include include/server.conf;
 

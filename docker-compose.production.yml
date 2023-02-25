@@ -188,7 +188,7 @@ services:
       - ROLLBAR_ENV=production
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.tw,https://en.cofacts.tw,https://cofacts.g0v.tw,https://cofacts.org,https://old.cofacts.org,https://en.cofacts.org,https://ja.cofacts.tw
+      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.tw,https://en.cofacts.tw,https://cofacts.g0v.tw,https://ja.cofacts.tw
       - RUMORS_SITE_REDIRECT_ORIGIN=https://cofacts.tw,https://en.cofacts.tw
       - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot.herokuapp.com
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
@@ -234,7 +234,7 @@ services:
       - ROLLBAR_ENV=staging
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://dev.cofacts.tw,https://dev.cofacts.org,https://dev-en.cofacts.org,https://dev-en.cofacts.tw,http://localhost:3000
+      - RUMORS_SITE_CORS_ORIGIN=https://dev.cofacts.tw,https://dev-en.cofacts.tw,http://localhost:3000
       - RUMORS_SITE_REDIRECT_ORIGIN=https://dev.cofacts.tw,https://dev-en.cofacts.tw,http://localhost:3000
       - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot-staging.herokuapp.com,http://localhost:5001
       - RUMORS_LINE_BOT_SECRET=CHANGE_ME
