@@ -130,6 +130,8 @@ services:
         awslogs-stream: <aws-stream-name>
     env_file:
       - ./env-files/line-bot-zh
+    volumes:
+      - "./volumes/line-bot:/data"
 
   line-bot-en:
     image: cofacts/rumors-line-bot:latest-en
