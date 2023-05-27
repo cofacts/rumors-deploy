@@ -6,7 +6,7 @@ server {
 
   location ~* {
     add_header X-Robots-Tag "noindex, nofollow";
-    proxy_pass http://collab-server-staging:5001;
+    proxy_pass http://collab-server-staging:1234;
     proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto; # From cloudflare
   }
 }
