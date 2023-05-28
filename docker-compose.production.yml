@@ -318,3 +318,17 @@ services:
       - "./volumes/redis/redis.conf:/usr/local/etc/redis/redis.conf"
     command: redis-server /usr/local/etc/redis/redis.conf
     restart: always
+  
+  collab-server:
+    image: cofacts/collab-server
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
+      - SECRET= 
+
+  collab-server-staging:
+    image: cofacts/collab-server:dev
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
+      - SECRET= 
