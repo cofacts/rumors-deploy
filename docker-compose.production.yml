@@ -324,11 +324,9 @@ services:
     environment:
       - PORT=1234
       - ELASTICSEARCH_URL=http://db:9200
-      - SECRET= 
 
   collab-server-staging:
     image: cofacts/collab-server:dev
     environment:
       - PORT=1234
       - ELASTICSEARCH_URL=http://db:9200
-      - SECRET= 
