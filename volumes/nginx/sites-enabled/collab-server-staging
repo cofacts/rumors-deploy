@@ -8,5 +8,7 @@ server {
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://collab-server-staging:1234;
     proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto; # From cloudflare
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
   }
 }
