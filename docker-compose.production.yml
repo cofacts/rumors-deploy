@@ -25,6 +25,7 @@ services:
       - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
@@ -46,6 +47,7 @@ services:
       - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
@@ -67,6 +69,7 @@ services:
       - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
       - PUBLIC_ROLLBAR_ENV=production
       - PUBLIC_API_URL=https://api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
       - PUBLIC_GTM_ID=GTM-NJXHKTH
       - PUBLIC_GA_TRACKING_ID=
       - SERVER_STACKIMPACT_AGENT_KEY=
@@ -87,6 +90,7 @@ services:
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
       - PUBLIC_API_URL=https://dev-api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -99,6 +103,7 @@ services:
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
       - PUBLIC_API_URL=https://dev-api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -111,6 +116,7 @@ services:
       - ROLLBAR_ENV=staging
       - NODE_ENV=production
       - PUBLIC_API_URL=https://dev-api.cofacts.tw
+      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
       - PUBLIC_APP_ID=RUMORS_SITE
       - PUBLIC_GA_TRACKING_ID=
     restart: always
@@ -324,11 +330,9 @@ services:
     environment:
       - PORT=1234
       - ELASTICSEARCH_URL=http://db:9200
-      - SECRET= 
 
   collab-server-staging:
     image: cofacts/collab-server:dev
     environment:
       - PORT=1234
       - ELASTICSEARCH_URL=http://db:9200
-      - SECRET= 
