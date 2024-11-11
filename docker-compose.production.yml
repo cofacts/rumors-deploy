@@ -16,6 +16,13 @@ services:
       - "/var/log:/var/log"
     restart: always
 
+  cloudflared:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=CHANGE_ME
+
   site-en:
     image: cofacts/rumors-site:latest-en
     environment:
