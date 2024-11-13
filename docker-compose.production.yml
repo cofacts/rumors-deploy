@@ -136,11 +136,10 @@ services:
     logging:
       # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
       # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
-      driver: awslogs
+      driver: gcplogs
       options:
-        awslogs-region: <aws-region>
-        awslogs-group: <aws-log-group>
-        awslogs-stream: <aws-stream-name>
+        gcp-meta-id: <Meta ID>
+        gcp-project: <GCP project>
     env_file:
       - ./env-files/line-bot-zh
     volumes:
@@ -154,11 +153,10 @@ services:
     logging:
       # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
       # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
-      driver: awslogs
+      driver: gcplogs
       options:
-        awslogs-region: <aws-region>
-        awslogs-group: <aws-log-group>
-        awslogs-stream: <aws-stream-name>
+        gcp-meta-id: <Meta ID>
+        gcp-project: <GCP project>
     env_file:
       - ./env-files/line-bot-zh
     environment: # override line-bot-zh
@@ -177,11 +175,10 @@ services:
     logging:
       # Sends all LINE bont logs to AWS Cloudwatch logs. For credential setup, please see:
       # https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/
-      driver: awslogs
+      driver: gcplogs
       options:
-        awslogs-region: <aws-region>
-        awslogs-group: <aws-log-group>
-        awslogs-stream: <aws-stream-name>
+        gcp-meta-id: <Meta ID>
+        gcp-project: <GCP project>
     env_file:
       - ./env-files/line-bot-zh
     environment: # override line-bot-zh
@@ -349,3 +346,61 @@ services:
     environment:
       - PORT=1234
       - ELASTICSEARCH_URL=http://db:9200
+
+  # LLM observability tool
+  #
+  langfuse:
+    image: langfuse/langfuse:2
+    environment:
+      # Please setup CloudSQL with automatic IAM database auth with the same service account as cloudsql-proxy.
+      # https://cloud.google.com/sql/docs/postgres/iam-logins#log-in-with-automatic
+      # USER_NAME is DB user name with `@` replaced by `%40`.
+      #
+      # If there is permission error during migration, grant the user with permission using
+      # `GRANT CREATE ON SCHEMA public TO "DB user name";`
+      #
+      - DATABASE_URL=postgresql://[USER_NAME]@cloudsql-proxy/[DB_NAME]
+
+      # Required envs
+      # See https://langfuse.com/docs/deployment/self-host#configuring-environment-variables
+      - NEXTAUTH_URL=
+      - NEXTAUTH_SECRET=
+      - SALT=
+      - ENCRYPTION_KEY=
+
+      # Default & headless params
+      - LANGFUSE_INIT_ORG_ID=
+      - LANGFUSE_INIT_ORG_NAME=
+      - LANGFUSE_DEFAULT_ORG_ID=
+      - LANGFUSE_DEFAULT_ORG_ROLE=OWNER
+
+      # Social login
+      - AUTH_GOOGLE_CLIENT_ID=
+      - AUTH_GOOGLE_CLIENT_SECRET=
+      - AUTH_GOOGLE_ALLOWED_DOMAINS=
+      - AUTH_DISABLE_USERNAME_PASSWORD=true
+
+    depends_on:
+      - cloudsql-proxy
+    logging:
+      driver: gcplogs
+      options:
+        gcp-meta-id: langfuse
+        gcp-project: <GCP project>
+
+  # Primarily for Langfuse
+  cloudsql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
+    volumes:
+      # The service account is used to both create connection (Cloud SQL Client) and authenticate (Cloud SQL Instance User)
+      # Ref: https://cloud.google.com/sql/docs/postgres/sql-proxy#permissions
+      # Ref: https://cloud.google.com/sql/docs/postgres/connect-auth-proxy#connecting-docker
+      # Ref: https://cloud.google.com/sql/docs/postgres/iam-logins
+      - "./volumes/cloudsql/service-account-key.json:/service-account-key.json"
+    command: --auto-iam-authn --address 0.0.0.0 --credentials-file /service-account-key.json INSTANCE_CONNECTION_NAME_CHANGE_ME
+    restart: unless-stopped
+    logging:
+      driver: gcplogs
+      options:
+        gcp-meta-id: langfuse
+        gcp-project: <GCP project>
