@@ -235,6 +235,9 @@ services:
       - GCS_IMAGE_FOLDER=
       - INTERNET_ARCHIVE_S3_ACCESS_KEY=
       - INTERNET_ARCHIVE_S3_SECRET_KEY=
+      - LANGFUSE_PUBLIC_KEY=
+      - LANGFUSE_SECRET_KEY=
+      - LANGFUSE_HOST=https://langfuse.cofacts.tw
     volumes:
       - "./volumes/api:/data"
     restart: always
@@ -282,6 +285,9 @@ services:
       - GCS_IMAGE_FOLDER=
       - INTERNET_ARCHIVE_S3_ACCESS_KEY=
       - INTERNET_ARCHIVE_S3_SECRET_KEY=
+      - LANGFUSE_PUBLIC_KEY=
+      - LANGFUSE_SECRET_KEY=
+      - LANGFUSE_HOST=https://langfuse.cofacts.tw
     volumes:
       - "./volumes/api:/data"
     restart: always
