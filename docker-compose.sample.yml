@@ -27,6 +27,9 @@ services:
       - COOKIE_SECRETS=
       - ROLLBAR_TOKEN=
       - ROLLBAR_ENV=production
+      - LANGFUSE_PUBLIC_KEY=
+      - LANGFUSE_SECRET_KEY=
+      - LANGFUSE_HOST=http://langfuse:3000
       - HTTP_HEADER_APP_ID=x-app-id
       - HTTP_HEADER_APP_SECRET=x-app-secret
       - RUMORS_SITE_CORS_ORIGIN=http://localhost:3000
