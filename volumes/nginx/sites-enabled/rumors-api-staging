@@ -8,5 +8,6 @@ server {
     add_header X-Robots-Tag "noindex, nofollow";
     proxy_pass http://api-staging:5000;
     proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto; # From cloudflare
+    proxy_read_timeout 240s;
   }
 }
