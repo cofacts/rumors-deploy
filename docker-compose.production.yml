@@ -129,6 +129,7 @@ services:
     restart: always
 
   line-bot-zh:
+    restart: always
     image: cofacts/rumors-line-bot:latest-tw
     depends_on:
       - api
@@ -343,6 +344,7 @@ services:
     restart: always
 
   collab-server:
+    restart: always
     image: cofacts/collab-server
     environment:
       - PORT=1234
@@ -357,6 +359,7 @@ services:
   # LLM observability tool
   #
   langfuse:
+    restart: always
     image: langfuse/langfuse:2
     environment:
       # Please setup CloudSQL with automatic IAM database auth with the same service account as cloudsql-proxy.
