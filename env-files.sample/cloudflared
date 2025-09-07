@@ -1,0 +1,2 @@
+# Cloudflared service secrets
+TUNNEL_TOKEN=CHANGE_ME

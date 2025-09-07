@@ -1,0 +1,2 @@
+# Site staging secrets (en/zh/ja)
+ROLLBAR_SERVER_TOKEN=CHANGE_ME
