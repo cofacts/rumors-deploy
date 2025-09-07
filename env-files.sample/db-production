@@ -1,0 +1,2 @@
+path.repo=/usr/share/elasticsearch/data
+ES_JAVA_OPTS=-Xms1g -Xmx1g
