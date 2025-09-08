@@ -4,7 +4,7 @@ services:
   site:
     image: cofacts/rumors-site:latest-en
     env_file:
-      - ./env-files.sample/site
+      - ./env-files/site
     ports:
       - "3000:3000"
     depends_on:
@@ -13,7 +13,7 @@ services:
   api:
     image: cofacts/rumors-api
     env_file:
-      - ./env-files.sample/api
+      - ./env-files/api
     volumes:
       - "./volumes/api:/data"
     ports:
@@ -25,7 +25,7 @@ services:
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     env_file:
-      - ./env-files.sample/db
+      - ./env-files/db
     volumes:
       - "./volumes/db-sample:/usr/share/elasticsearch/data"
     ports:
@@ -36,12 +36,12 @@ services:
     ports: # expose for debugging
       - "4000:4000"
     env_file:
-      - ./env-files.sample/url-resolver
+      - ./env-files/url-resolver
 
   line-bot-zh:
     image: cofacts/rumors-line-bot:dev
     env_file:
-      - ./env-files.sample/line-bot-sample
+      - ./env-files/line-bot-zh
     ports:
       - "5001:5001"
     depends_on:
@@ -55,7 +55,7 @@ services:
   mongo:
     image: mongo:3.6
     env_file:
-      - ./env-files.sample/mongo
+      - ./env-files/mongo
     ports:
       - "27017:27017"
     volumes:

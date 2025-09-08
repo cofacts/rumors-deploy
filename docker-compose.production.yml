@@ -21,42 +21,42 @@ services:
     restart: unless-stopped
     command: tunnel run
     env_file:
-      - ./env-files.sample/cloudflared
+      - ./env-files/cloudflared
 
   site-en:
     image: cofacts/rumors-site:latest-en
     env_file:
-      - ./env-files.sample/site-en
+      - ./env-files/site-en
     restart: always
 
   site-zh:
     image: cofacts/rumors-site:latest-tw
     env_file:
-      - ./env-files.sample/site-zh
+      - ./env-files/site-zh
     restart: always
 
   site-ja:
     image: cofacts/rumors-site:latest-ja
     env_file:
-      - ./env-files.sample/site-ja
+      - ./env-files/site-ja
     restart: always
 
   site-staging-en:
     image: cofacts/rumors-site:latest-en
     env_file:
-      - ./env-files.sample/site-staging-en
+      - ./env-files/site-staging-en
     restart: always
 
   site-staging-zh:
     image: cofacts/rumors-site:latest-tw
     env_file:
-      - ./env-files.sample/site-staging-zh
+      - ./env-files/site-staging-zh
     restart: always
 
   site-staging-ja:
     image: cofacts/rumors-site:latest-ja
     env_file:
-      - ./env-files.sample/site-staging-ja
+      - ./env-files/site-staging-ja
     restart: always
 
   line-bot-zh:
@@ -73,7 +73,7 @@ services:
         gcp-meta-id: <Meta ID>
         gcp-project: <GCP project>
     env_file:
-      - ./env-files.sample/line-bot-zh
+      - ./env-files/line-bot-zh
     volumes:
       - "./volumes/line-bot:/data"
 
@@ -90,8 +90,8 @@ services:
         gcp-meta-id: <Meta ID>
         gcp-project: <GCP project>
     env_file:
-      - ./env-files.sample/line-bot-zh
-      - ./env-files.sample/line-bot-en
+      - ./env-files/line-bot-zh
+      - ./env-files/line-bot-en
 
   line-bot-ja:
     image: cofacts/rumors-line-bot:latest-ja
@@ -106,13 +106,13 @@ services:
         gcp-meta-id: <Meta ID>
         gcp-project: <GCP project>
     env_file:
-      - ./env-files.sample/line-bot-zh
-      - ./env-files.sample/line-bot-ja
+      - ./env-files/line-bot-zh
+      - ./env-files/line-bot-ja
 
   api:
     image: cofacts/rumors-api
     env_file:
-      - ./env-files.sample/api-production
+      - ./env-files/api-production
     volumes:
       - "./volumes/api:/data"
     restart: always
@@ -120,7 +120,7 @@ services:
   api-staging:
     image: cofacts/rumors-api
     env_file:
-      - ./env-files.sample/api-staging
+      - ./env-files/api-staging
     volumes:
       - "./volumes/api:/data"
     restart: always
@@ -128,7 +128,7 @@ services:
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     env_file:
-      - ./env-files.sample/db-production
+      - ./env-files/db-production
     volumes:
       - "./volumes/db-production:/usr/share/elasticsearch/data"
     restart: always
@@ -139,7 +139,7 @@ services:
   db-staging:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     env_file:
-      - ./env-files.sample/db-staging
+      - ./env-files/db-staging
     ulimits:
       memlock:
         soft: -1
@@ -158,7 +158,7 @@ services:
     ports: # expose for debugging
       - "4000:4000"
     env_file:
-      - ./env-files.sample/url-resolver-production
+      - ./env-files/url-resolver-production
 
   redis:
     image: redis:alpine
@@ -171,12 +171,12 @@ services:
     restart: always
     image: cofacts/collab-server
     env_file:
-      - ./env-files.sample/collab-server
+      - ./env-files/collab-server
 
   collab-server-staging:
     image: cofacts/collab-server:dev
     env_file:
-      - ./env-files.sample/collab-server-staging
+      - ./env-files/collab-server-staging
 
   # LLM observability tool
   #
@@ -184,7 +184,7 @@ services:
     restart: always
     image: langfuse/langfuse:2
     env_file:
-      - ./env-files.sample/langfuse
+      - ./env-files/langfuse
 
     depends_on:
       - cloudsql-proxy

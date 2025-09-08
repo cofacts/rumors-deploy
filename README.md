@@ -24,9 +24,13 @@ Explanation of each environment variables are in `.env.sample` of the correspond
 
 0. `su` to appropriate user (for instance, `docker`)
 1. Clone this repo on production server
-2. Make a duplicate of `env-files.sample` directory and rename to `env-files`
-2. Make necessary changes to `docker-compose.yml` and files in `volumes/`
-3. `docker-compose up -d`
+2. Copy the `env-files.sample` directory to `env-files` and populate with your actual environment values:
+   ```bash
+   cp -r env-files.sample env-files
+   # Edit files in env-files/ with your actual configuration values
+   ```
+3. Make necessary changes to `docker-compose.yml` and files in `volumes/`
+4. `docker-compose up -d`
 
 If you want ot run the whole Cofacts on the laptop, you may find this note useful:
 <http://bit.ly/run-cofacts>
