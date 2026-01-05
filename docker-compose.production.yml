@@ -127,8 +127,9 @@ services:
 
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
-    env_file:
-      - ./env-files/db-production
+    environment:
+      - path.repo=/usr/share/elasticsearch/data
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     volumes:
       - "./volumes/db-production:/usr/share/elasticsearch/data"
     restart: always
@@ -138,8 +139,10 @@ services:
 
   db-staging:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
-    env_file:
-      - ./env-files/db-staging
+    environment:
+      - path.repo=/usr/share/elasticsearch/data
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - bootstrap.memory_lock=true
     ulimits:
       memlock:
         soft: -1
@@ -170,13 +173,15 @@ services:
   collab-server:
     restart: always
     image: cofacts/collab-server
-    env_file:
-      - ./env-files/collab-server
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
 
   collab-server-staging:
     image: cofacts/collab-server:dev
-    env_file:
-      - ./env-files/collab-server-staging
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
 
   # LLM observability tool
   #
