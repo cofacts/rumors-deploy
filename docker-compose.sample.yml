@@ -3,16 +3,8 @@ services:
 
   site:
     image: cofacts/rumors-site:latest-en
-    environment:
-      - PORT=3000
-      - NODE_ENV=production
-      - SERVER_ROLLBAR_TOKEN=
-      - PUBLIC_ROLLBAR_TOKEN=
-      - PUBLIC_ROLLBAR_ENV=
-      - PUBLIC_API_URL=http://api:5000
-      - PUBLIC_GTM_ID=
-      - SERVER_STACKIMPACT_AGENT_KEY=
-      - SERVER_STACKIMPACT_APP_NAME=
+    env_file:
+      - ./env-files/site
     ports:
       - "3000:3000"
     depends_on:
@@ -20,42 +12,8 @@ services:
 
   api:
     image: cofacts/rumors-api
-    environment:
-      - ELASTICSEARCH_URL=http://db:9200
-      - ELASTIC_LOG_LEVEL=info
-      - PORT=5000
-      - COOKIE_SECRETS=
-      - ROLLBAR_TOKEN=
-      - ROLLBAR_ENV=production
-      - LANGFUSE_PUBLIC_KEY=
-      - LANGFUSE_SECRET_KEY=
-      - LANGFUSE_BASEURL=http://langfuse:3000
-      - HTTP_HEADER_APP_ID=x-app-id
-      - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=http://localhost:3000
-      - RUMORS_SITE_REDIRECT_ORIGIN=http://localhost:3000
-      - RUMORS_LINE_BOT_SECRET=CHANGE_ME
-      - FACEBOOK_APP_ID=
-      - FACEBOOK_SECRET=
-      - FACEBOOK_CALLBACK_URL=http://localhost:5000/callback/facebook
-      - TWITTER_CONSUMER_KEY=
-      - TWITTER_CONSUMER_SECRET
-      - TWITTER_CALLBACK_URL=http://localhost:5000/callback/twitter
-      - GITHUB_CLIENT_ID=
-      - GITHUB_SECRET=
-      - GITHUB_CALLBACK_URL=http://localhost:5000/callback/github
-      - URL_RESOLVER_URL=url-resolver:4000
-      - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
-      - GA_WEB_VIEW_ID=
-      - GA_LINE_VIEW_ID=
-      - TIMEZONE=+08:00
-      - TRUST_PROXY_HEADERS=
-      - COOKIE_SAMESITE_NONE=
-      - GCS_CREDENTIALS=
-      - GCS_BUCKET_NAME=
-      - GCS_IMAGE_FOLDER=
-      - INTERNET_ARCHIVE_S3_ACCESS_KEY=
-      - INTERNET_ARCHIVE_S3_SECRET_KEY=
+    env_file:
+      - ./env-files/api
     volumes:
       - "./volumes/api:/data"
     ports:
@@ -67,7 +25,7 @@ services:
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     environment:
-      - "path.repo=/usr/share/elasticsearch/data"
+      - path.repo=/usr/share/elasticsearch/data
     volumes:
       - "./volumes/db-sample:/usr/share/elasticsearch/data"
     ports:
@@ -77,15 +35,13 @@ services:
     image: cofacts/url-resolver
     ports: # expose for debugging
       - "4000:4000"
-    environment:
-      - YOUTUBE_API_KEY=
-      - ROLLBAR_TOKEN=
-      - ROLLBAR_ENV=production
+    env_file:
+      - ./env-files/url-resolver
 
   line-bot-zh:
     image: cofacts/rumors-line-bot:dev
     env_file:
-      - ./env-files/line-bot-sample
+      - ./env-files/line-bot-zh
     ports:
       - "5001:5001"
     depends_on:
@@ -98,9 +54,8 @@ services:
 
   mongo:
     image: mongo:3.6
-    environment:
-        - MONGO_INITDB_ROOT_USERNAME=root
-        - MONGO_INITDB_ROOT_PASSWORD=root-test-password
+    env_file:
+      - ./env-files/mongo
     ports:
       - "27017:27017"
     volumes:

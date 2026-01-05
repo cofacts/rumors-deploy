@@ -1,0 +1,7 @@
+# Override variables for line-bot-ja
+LINE_CHANNEL_SECRET=
+LINE_CHANNEL_TOKEN=
+LINE_LOGIN_CHANNEL_ID=
+LIFF_URL=
+SITE_URLS=https://ja.cofacts.tw
+RUMORS_LINE_BOT_URL=

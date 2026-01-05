@@ -20,112 +20,43 @@ services:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=CHANGE_ME
+    env_file:
+      - ./env-files/cloudflared
 
   site-en:
     image: cofacts/rumors-site:latest-en
-    environment:
-      - PORT=3000
-      - NODE_ENV=production
-      - SERVER_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_ENV=production
-      - PUBLIC_API_URL=https://api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
-      - PUBLIC_GTM_ID=GTM-NJXHKTH
-      - PUBLIC_GA_TRACKING_ID=
-      - SERVER_STACKIMPACT_AGENT_KEY=
-      - SERVER_STACKIMPACT_APP_NAME=
-      - PM2_PUBLIC_KEY=
-      - PM2_SECRET_KEY=
-      - WEB_CONCURRENCY=1
-      - PUBLIC_LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
-      - PUBLIC_TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
-      - PUBLIC_SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
+    env_file:
+      - ./env-files/site-en
     restart: always
 
   site-zh:
     image: cofacts/rumors-site:latest-tw
-    environment:
-      - PORT=3000
-      - NODE_ENV=production
-      - SERVER_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_ENV=production
-      - PUBLIC_API_URL=https://api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
-      - PUBLIC_GTM_ID=GTM-NJXHKTH
-      - PUBLIC_GA_TRACKING_ID=
-      - SERVER_STACKIMPACT_AGENT_KEY=
-      - SERVER_STACKIMPACT_APP_NAME=
-      - PM2_PUBLIC_KEY=
-      - PM2_SECRET_KEY=
-      - WEB_CONCURRENCY=2
-      - PUBLIC_LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
-      - PUBLIC_TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
-      - PUBLIC_SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
+    env_file:
+      - ./env-files/site-zh
     restart: always
 
   site-ja:
     image: cofacts/rumors-site:latest-ja
-    environment:
-      - PORT=3000
-      - NODE_ENV=production
-      - SERVER_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_TOKEN=CHANGE_ME
-      - PUBLIC_ROLLBAR_ENV=production
-      - PUBLIC_API_URL=https://api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://collab.cofacts.tw
-      - PUBLIC_GTM_ID=GTM-NJXHKTH
-      - PUBLIC_GA_TRACKING_ID=
-      - SERVER_STACKIMPACT_AGENT_KEY=
-      - SERVER_STACKIMPACT_APP_NAME=
-      - PM2_PUBLIC_KEY=
-      - PM2_SECRET_KEY=
-      - WEB_CONCURRENCY=1
-      - PUBLIC_LINE_IFTTT_APPLET_URL=https://ifttt.com/applets/VrzvihCR-cofacts-rss-line
-      - PUBLIC_TELEGRAM_IFTTT_APPLET_URL=https://ifttt.com/applets/WRuZeP36-cofacts-rss-telegram
-      - PUBLIC_SLACK_IFTTT_APPLET_URL=https://ifttt.com/applets/H4Sm5LDF-cofacts-rss-slack
+    env_file:
+      - ./env-files/site-ja
     restart: always
 
   site-staging-en:
     image: cofacts/rumors-site:latest-en
-    environment:
-      - PORT=3000
-      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=staging
-      - NODE_ENV=production
-      - PUBLIC_API_URL=https://dev-api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
-      - PUBLIC_APP_ID=RUMORS_SITE
-      - PUBLIC_GA_TRACKING_ID=
+    env_file:
+      - ./env-files/site-staging-en
     restart: always
 
   site-staging-zh:
     image: cofacts/rumors-site:latest-tw
-    environment:
-      - PORT=3000
-      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=staging
-      - NODE_ENV=production
-      - PUBLIC_API_URL=https://dev-api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
-      - PUBLIC_APP_ID=RUMORS_SITE
-      - PUBLIC_GA_TRACKING_ID=
+    env_file:
+      - ./env-files/site-staging-zh
     restart: always
 
   site-staging-ja:
     image: cofacts/rumors-site:latest-ja
-    environment:
-      - PORT=3000
-      - ROLLBAR_SERVER_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=staging
-      - NODE_ENV=production
-      - PUBLIC_API_URL=https://dev-api.cofacts.tw
-      - PUBLIC_COLLAB_SERVER_URL=wss://dev-collab.cofacts.tw
-      - PUBLIC_APP_ID=RUMORS_SITE
-      - PUBLIC_GA_TRACKING_ID=
+    env_file:
+      - ./env-files/site-staging-ja
     restart: always
 
   line-bot-zh:
@@ -160,13 +91,7 @@ services:
         gcp-project: <GCP project>
     env_file:
       - ./env-files/line-bot-zh
-    environment: # override line-bot-zh
-      - LINE_CHANNEL_SECRET=
-      - LINE_CHANNEL_TOKEN=
-      - LINE_LOGIN_CHANNEL_ID=
-      - LIFF_URL=
-      - SITE_URLS=https://en.cofacts.tw
-      - RUMORS_LINE_BOT_URL=
+      - ./env-files/line-bot-en
 
   line-bot-ja:
     image: cofacts/rumors-line-bot:latest-ja
@@ -182,113 +107,20 @@ services:
         gcp-project: <GCP project>
     env_file:
       - ./env-files/line-bot-zh
-    environment: # override line-bot-zh
-      - LINE_CHANNEL_SECRET=
-      - LINE_CHANNEL_TOKEN=
-      - LINE_LOGIN_CHANNEL_ID=
-      - LIFF_URL=
-      - SITE_URLS=https://ja.cofacts.tw
-      - RUMORS_LINE_BOT_URL=
+      - ./env-files/line-bot-ja
 
   api:
     image: cofacts/rumors-api
-    environment:
-      - ELASTICSEARCH_URL=http://db:9200
-      - ELASTIC_LOG_LEVEL=info
-      - PORT=5000
-      - ADM_PORT=5500
-      - CLOUDFLARE_ACCESS_TEAM_DOMAIN=https://cofacts.cloudflareaccess.com
-      - COOKIE_SECRETS=
-      - ROLLBAR_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=production
-      - HTTP_HEADER_APP_ID=x-app-id
-      - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://cofacts.tw,https://en.cofacts.tw,https://ja.cofacts.tw
-      - RUMORS_SITE_REDIRECT_ORIGIN=https://cofacts.tw,https://en.cofacts.tw
-      - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot.herokuapp.com
-      - RUMORS_LINE_BOT_SECRET=CHANGE_ME
-      - FACEBOOK_APP_ID=CHANGE_ME
-      - FACEBOOK_SECRET=CHANGE_ME
-      - FACEBOOK_CALLBACK_URL=https://api.cofacts.tw/callback/facebook
-      - TWITTER_CONSUMER_KEY=CHANGE_ME
-      - TWITTER_CONSUMER_SECRET=CHANGE_ME
-      - TWITTER_CALLBACK_URL=https://api.cofacts.tw/callback/twitter
-      - GITHUB_CLIENT_ID=CHANGE_ME
-      - GITHUB_SECRET=CHANGE_ME
-      - GITHUB_CALLBACK_URL=https://api.cofacts.tw/callback/github
-      - GOOGLE_CLIENT_ID=CHANGE_ME
-      - GOOGLE_SECRET=CHANGE_ME
-      - GOOGLE_CALLBACK_URL=https://api.cofacts.tw/callback/google
-      - INSTAGRAM_CLIENT_ID=CHANGE_ME
-      - INSTAGRAM_SECRET=CHANGE_ME
-      - INSTAGRAM_CALLBACK_URL=https://api.cofacts.tw/callback/instagram
-      - URL_RESOLVER_URL=url-resolver:4000
-      - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
-      - GA_WEB_VIEW_ID=CHANGE_ME
-      - GA_LINE_VIEW_ID=CHANGE_ME
-      - TIMEZONE=+08:00
-      - TRUST_PROXY_HEADERS=1
-      - COOKIE_SAMESITE_NONE=1
-      # Apollo engine
-      - ENGINE_API_KEY=CHANGE_ME
-      - GCS_CREDENTIALS=
-      - GCS_BUCKET_NAME=
-      - GCS_IMAGE_FOLDER=
-      - INTERNET_ARCHIVE_S3_ACCESS_KEY=
-      - INTERNET_ARCHIVE_S3_SECRET_KEY=
-      - LANGFUSE_PUBLIC_KEY=
-      - LANGFUSE_SECRET_KEY=
-      - LANGFUSE_BASEURL=https://langfuse.cofacts.tw
+    env_file:
+      - ./env-files/api-production
     volumes:
       - "./volumes/api:/data"
     restart: always
 
   api-staging:
     image: cofacts/rumors-api
-    environment:
-      - ELASTICSEARCH_URL=http://db-staging:9200
-      - ELASTIC_LOG_LEVEL=info
-      - PORT=5000
-      - ADM_PORT=6000
-      - COOKIE_SECRETS=
-      - ROLLBAR_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=staging
-      - HTTP_HEADER_APP_ID=x-app-id
-      - HTTP_HEADER_APP_SECRET=x-app-secret
-      - RUMORS_SITE_CORS_ORIGIN=https://dev.cofacts.tw,https://dev-en.cofacts.tw,http://localhost:3000
-      - RUMORS_SITE_REDIRECT_ORIGIN=https://dev.cofacts.tw,https://dev-en.cofacts.tw,http://localhost:3000
-      - RUMORS_LINE_BOT_CORS_ORIGIN=https://rumors-line-bot-staging.herokuapp.com,http://localhost:5001
-      - RUMORS_LINE_BOT_SECRET=CHANGE_ME
-      - FACEBOOK_APP_ID=CHANGE_ME
-      - FACEBOOK_SECRET=CHANGE_ME
-      - FACEBOOK_CALLBACK_URL=https://dev-api.cofacts.tw/callback/facebook
-      - TWITTER_CONSUMER_KEY=CHANGE_ME
-      - TWITTER_CONSUMER_SECRET=CHANGE_ME
-      - TWITTER_CALLBACK_URL=https://dev-api.cofacts.tw/callback/twitter
-      - GITHUB_CLIENT_ID=CHANGE_ME
-      - GITHUB_SECRET=CHANGE_ME
-      - GITHUB_CALLBACK_URL=https://dev-api.cofacts.tw/callback/github
-      - GOOGLE_CLIENT_ID=CHANGE_ME
-      - GOOGLE_SECRET=CHANGE_ME
-      - GOOGLE_CALLBACK_URL=https://dev-api.cofacts.tw/callback/google
-      - INSTAGRAM_CLIENT_ID=CHANGE_ME
-      - INSTAGRAM_SECRET=CHANGE_ME
-      - INSTAGRAM_CALLBACK_URL=https://dev-api.cofacts.tw/callback/instagram
-      - URL_RESOLVER_URL=url-resolver:4000
-      - GOOGLE_OAUTH_KEY_PATH=/data/service-account-key.json
-      - GA_WEB_VIEW_ID=CHANGE_ME
-      - GA_LINE_VIEW_ID=CHANGE_ME
-      - TIMEZONE=+08:00
-      - TRUST_PROXY_HEADERS=1
-      - COOKIE_SAMESITE_NONE=1
-      - GCS_CREDENTIALS=
-      - GCS_BUCKET_NAME=
-      - GCS_IMAGE_FOLDER=
-      - INTERNET_ARCHIVE_S3_ACCESS_KEY=
-      - INTERNET_ARCHIVE_S3_SECRET_KEY=
-      - LANGFUSE_PUBLIC_KEY=
-      - LANGFUSE_SECRET_KEY=
-      - LANGFUSE_BASEURL=https://langfuse.cofacts.tw
+    env_file:
+      - ./env-files/api-staging
     volumes:
       - "./volumes/api:/data"
     restart: always
@@ -296,8 +128,8 @@ services:
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     environment:
-      - "path.repo=/usr/share/elasticsearch/data"
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - path.repo=/usr/share/elasticsearch/data
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     volumes:
       - "./volumes/db-production:/usr/share/elasticsearch/data"
     restart: always
@@ -308,9 +140,9 @@ services:
   db-staging:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
     environment:
-      - "path.repo=/usr/share/elasticsearch/data"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "bootstrap.memory_lock=true"
+      - path.repo=/usr/share/elasticsearch/data
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - bootstrap.memory_lock=true
     ulimits:
       memlock:
         soft: -1
@@ -328,13 +160,8 @@ services:
     restart: always
     ports: # expose for debugging
       - "4000:4000"
-    environment:
-      - YOUTUBE_API_KEY=CHANGE_ME
-      - ROLLBAR_TOKEN=CHANGE_ME
-      - ROLLBAR_ENV=production-cofacts
-
-      # Apollo engine
-      - ENGINE_API_KEY=CHANGE_ME
+    env_file:
+      - ./env-files/url-resolver-production
 
   redis:
     image: redis:alpine
@@ -361,34 +188,8 @@ services:
   langfuse:
     restart: always
     image: langfuse/langfuse:2
-    environment:
-      # Please setup CloudSQL with automatic IAM database auth with the same service account as cloudsql-proxy.
-      # https://cloud.google.com/sql/docs/postgres/iam-logins#log-in-with-automatic
-      # USER_NAME is DB user name with `@` replaced by `%40`.
-      #
-      # If there is permission error during migration, grant the user with permission using
-      # `GRANT CREATE ON SCHEMA public TO "DB user name";`
-      #
-      - DATABASE_URL=postgresql://[USER_NAME]@cloudsql-proxy/[DB_NAME]
-
-      # Required envs
-      # See https://langfuse.com/docs/deployment/self-host#configuring-environment-variables
-      - NEXTAUTH_URL=
-      - NEXTAUTH_SECRET=
-      - SALT=
-      - ENCRYPTION_KEY=
-
-      # Default & headless params
-      - LANGFUSE_INIT_ORG_ID=
-      - LANGFUSE_INIT_ORG_NAME=
-      - LANGFUSE_DEFAULT_ORG_ID=
-      - LANGFUSE_DEFAULT_ORG_ROLE=OWNER
-
-      # Social login
-      - AUTH_GOOGLE_CLIENT_ID=
-      - AUTH_GOOGLE_CLIENT_SECRET=
-      - AUTH_GOOGLE_ALLOWED_DOMAINS=
-      - AUTH_DISABLE_USERNAME_PASSWORD=true
+    env_file:
+      - ./env-files/langfuse
 
     depends_on:
       - cloudsql-proxy
