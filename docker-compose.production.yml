@@ -199,6 +199,18 @@ services:
         gcp-meta-id: langfuse
         gcp-project: <GCP project>
 
+  adk:
+    image: cofacts/adk:latest
+    env_file:
+      - ./env-files/adk
+    restart: always
+
+  ai-site:
+    image: cofacts/site:latest
+    env_file:
+      - ./env-files/ai-site
+    restart: always
+
   # Primarily for Langfuse
   cloudsql-proxy:
     image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
