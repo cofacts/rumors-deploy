@@ -1,0 +1,7 @@
+GOOGLE_API_KEY=your-google-api-key-here
+PORT=8000
+HOST=0.0.0.0
+# COFACTS_API_URL=https://api.cofacts.tw/graphql
+# LANGFUSE_PUBLIC_KEY=
+# LANGFUSE_SECRET_KEY=
+# LANGFUSE_HOST=
