@@ -72,7 +72,7 @@ services:
       - LANGFUSE_BASE_URL=https://langfuse.cofacts.tw
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
-      interval: 10s
+      interval: 60s
       timeout: 5s
       retries: 6
       start_period: 10s
