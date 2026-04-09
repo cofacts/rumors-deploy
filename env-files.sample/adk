@@ -1,7 +1,7 @@
-GOOGLE_API_KEY=your-google-api-key-here
-PORT=8000
-HOST=0.0.0.0
-# COFACTS_API_URL=https://api.cofacts.tw/graphql
-# LANGFUSE_PUBLIC_KEY=
-# LANGFUSE_SECRET_KEY=
-# LANGFUSE_HOST=
+# Google Gemini API key (https://aistudio.google.com/app/apikey)
+GOOGLE_API_KEY=
+
+# Langfuse credentials (https://langfuse.cofacts.tw → Project Settings)
+# Optional: skip to disable Langfuse instrumentation
+LANGFUSE_PUBLIC_KEY=pk-lf-
+LANGFUSE_SECRET_KEY=sk-lf-
