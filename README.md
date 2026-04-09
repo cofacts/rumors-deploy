@@ -4,14 +4,9 @@ Deployment scripts for g0v rumors project
 
 ## Configuration
 
-We provide a single `docker-compose.sample.yml` file which contains definitions for both local development and production deployments using Docker Compose **Profiles**.
+We provide a single `docker-compose.sample.yml` file. This file provides a minimal setup to get all Cofacts services running on a single computer for local execution or development.
 
-- **`dev` profile**: Minimal setup to get Cofacts services running locally on a single computer.
-- **`prod` profile**: The actual setup that is running on cofacts.g0v.tw. It includes:
-  - `nginx` added as a reverse-proxy to serve HTTPS certificates.
-  - Logging configured to use GCP Logging.
-
-Before moving to the next step, you are expected to create your own `docker-compose.yml` by copying the sample file. You should also copy `.env.sample` to `.env` to configure variables used within the `docker-compose.yml` itself (like GCP logging configurations).
+Before moving to the next step, you are expected to create your own `docker-compose.yml` by copying the sample file.
 
 Explanation of individual service environment variables can be found in the `.env.sample` of the corresponding [repository](https://github.com/cofacts/).
 
@@ -32,17 +27,11 @@ Explanation of individual service environment variables can be found in the `.en
 3. Copy the sample files to create your active configuration:
    ```bash
    cp docker-compose.sample.yml docker-compose.yml
-   cp .env.sample .env
-   # Edit .env with your GCP project and meta ID if using production logging
    ```
 4. Make necessary changes to `docker-compose.yml` and files in `volumes/`.
-5. Start the services for your desired environment using the `--profile` flag:
+5. Start the services:
    ```bash
-   # For local development
-   docker compose --profile dev up -d
-
-   # For production
-   docker compose --profile prod up -d
+   docker-compose up -d
    ```
 
 If you want to run the whole Cofacts on the laptop, you may find this note useful:
@@ -63,16 +52,13 @@ After changings file in `volumes/`:
 docker-compose restart <name>
 ```
 
-where `<name>` can be `nginx`, `site`, `api` and `db`.
+where `<name>` can be `site`, `api` and `db`.
 
 ## Crontab setup
 
 `crontab -e` and add:
 
 ```text
-0 0 1 * * docker run --rm -v /var/www/cofacts:/var/www/cofacts -v /etc/letsencrypt:/etc/letsencrypt -v /etc/ssl/certs:/etc/ssl/certs -v /var/log:/var/log certbot/certbot certonly --webroot -w /var/www/cofacts -d cofacts.g0v.tw -m <your@email> --agree-tos --non-interactive >> /var/log/cron.log 2>&1
-5 0 1 * * docker run --rm -v /var/www/cofacts:/var/www/cofacts -v /etc/letsencrypt:/etc/letsencrypt -v /etc/ssl/certs:/etc/ssl/certs -v /var/log:/var/log certbot/certbot certonly --webroot -w /var/www/cofacts -d cofacts-api.g0v.tw -m <your@email> --agree-tos --non-interactive >> /var/log/cron.log 2>&1
-0 1 1 * * cd /home/docker/rumors-deploy; /usr/local/bin/docker-compose restart nginx >> /var/log/cron.log 2>&1
 5 0 * * * cd /home/docker/rumors-deploy; /usr/local/bin/docker-compose exec -T api node build/scripts/cleanupUrls.js >> /var/log/cron.log 2>&1
 ```
 
