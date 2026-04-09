@@ -1,14 +1,54 @@
-version: '2'
-services:
+x-gcp-logging: &gcp-logging
+  driver: gcplogs
+  options:
+    gcp-meta-id: ${GCP_META_ID:-default}
+    gcp-project: ${GCP_PROJECT:-default}
 
-  site:
-    image: cofacts/rumors-site:latest-en
-    env_file:
-      - ./env-files/site
+services:
+  # ---------------------------------------------------------
+  # Shared / Infrastructure Services (Profiles: dev, prod)
+  # ---------------------------------------------------------
+  db:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
+    environment:
+      - path.repo=/usr/share/elasticsearch/data
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    volumes:
+      - "./volumes/db-production:/usr/share/elasticsearch/data"
     ports:
-      - "3000:3000"
-    depends_on:
-      - api
+      # Expose for dev/migration operations, usually restricted by firewall in prod
+      - "62222:9200"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    profiles:
+      - dev
+      - prod
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - "./volumes/redis/redis.conf:/usr/local/etc/redis/redis.conf"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+    profiles:
+      - dev
+      - prod
+
+  url-resolver:
+    image: cofacts/url-resolver
+    mem_limit: 250m
+    restart: always
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./env-files/url-resolver
+    profiles:
+      - dev
+      - prod
 
   api:
     image: cofacts/rumors-api
@@ -18,39 +58,36 @@ services:
       - "./volumes/api:/data"
     ports:
       - "5000:5000"
+    restart: always
     depends_on:
-      - db
-      - url-resolver
+      db:
+        condition: service_healthy
+      url-resolver:
+        condition: service_started
+    healthcheck:
+      # Simple check to see if port 5000 is open. A dedicated /health endpoint would be better.
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:5000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    profiles:
+      - dev
+      - prod
 
-  db:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
-    environment:
-      - path.repo=/usr/share/elasticsearch/data
-    volumes:
-      - "./volumes/db-sample:/usr/share/elasticsearch/data"
-    ports:
-      - "62222:9200"
-
-  url-resolver:
-    image: cofacts/url-resolver
-    ports: # expose for debugging
-      - "4000:4000"
+  # ---------------------------------------------------------
+  # Development Specific Services (Profile: dev)
+  # ---------------------------------------------------------
+  site:
+    image: cofacts/rumors-site:latest-en
     env_file:
-      - ./env-files/url-resolver
-
-  line-bot-zh:
-    image: cofacts/rumors-line-bot:dev
-    env_file:
-      - ./env-files/line-bot-zh
+      - ./env-files/site
     ports:
-      - "5001:5001"
+      - "3000:3000"
     depends_on:
-      - api
-      - mongo
-      - redis
-
-  redis:
-    image: redis
+      api:
+        condition: service_healthy
+    profiles:
+      - dev
 
   mongo:
     image: mongo:3.6
@@ -61,3 +98,181 @@ services:
     volumes:
       - "./data/mongo:/data/db"
     command: mongod
+    profiles:
+      - dev
+
+  # Note: The original sample had line-bot-zh in dev, but it relied on mongo.
+  # In prod, it doesn't. We keep the dev version similar to the original sample.
+  line-bot-zh-dev:
+    image: cofacts/rumors-line-bot:dev
+    env_file:
+      - ./env-files/line-bot-zh
+    ports:
+      - "5001:5001"
+    depends_on:
+      api:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_started
+    profiles:
+      - dev
+
+  # ---------------------------------------------------------
+  # Production Specific Services (Profile: prod)
+  # ---------------------------------------------------------
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./volumes/nginx/sites-enabled:/etc/nginx/sites-enabled:ro"
+      - "./volumes/nginx/include:/etc/nginx/include:ro"
+      - "/var/www/cofacts:/var/www/cofacts:ro"
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+      - "/etc/ssl/certs:/etc/ssl/certs:ro"
+      - "/var/log:/var/log"
+    restart: always
+    profiles:
+      - prod
+
+  cloudflared:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    env_file:
+      - ./env-files/cloudflared
+    profiles:
+      - prod
+
+  site-en:
+    image: cofacts/rumors-site:latest-en
+    env_file:
+      - ./env-files/site-en
+    restart: always
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles:
+      - prod
+
+  site-zh:
+    image: cofacts/rumors-site:latest-tw
+    env_file:
+      - ./env-files/site-zh
+    restart: always
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles:
+      - prod
+
+  site-ja:
+    image: cofacts/rumors-site:latest-ja
+    env_file:
+      - ./env-files/site-ja
+    restart: always
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles:
+      - prod
+
+  line-bot-zh:
+    restart: always
+    image: cofacts/rumors-line-bot:latest-tw
+    depends_on:
+      api:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    logging: *gcp-logging
+    env_file:
+      - ./env-files/line-bot-zh
+    volumes:
+      - "./volumes/line-bot:/data"
+    profiles:
+      - prod
+
+  line-bot-en:
+    image: cofacts/rumors-line-bot:latest-en
+    depends_on:
+      api:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    logging: *gcp-logging
+    env_file:
+      - ./env-files/line-bot-zh
+      - ./env-files/line-bot-en
+    profiles:
+      - prod
+
+  line-bot-ja:
+    image: cofacts/rumors-line-bot:latest-ja
+    depends_on:
+      api:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    logging: *gcp-logging
+    env_file:
+      - ./env-files/line-bot-zh
+      - ./env-files/line-bot-ja
+    profiles:
+      - prod
+
+  collab-server:
+    restart: always
+    image: cofacts/collab-server
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles:
+      - prod
+
+  langfuse:
+    restart: always
+    image: langfuse/langfuse:2
+    env_file:
+      - ./env-files/langfuse
+    depends_on:
+      cloudsql-proxy:
+        condition: service_started
+    logging: *gcp-logging
+    profiles:
+      - prod
+
+  adk:
+    image: cofacts/adk:latest
+    env_file:
+      - ./env-files/adk
+    restart: always
+    logging: *gcp-logging
+    profiles:
+      - prod
+
+  ai-site:
+    image: cofacts/site:latest
+    env_file:
+      - ./env-files/ai-site
+    restart: always
+    logging: *gcp-logging
+    profiles:
+      - prod
+
+  cloudsql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
+    volumes:
+      - "./volumes/cloudsql/service-account-key.json:/service-account-key.json"
+    command: --auto-iam-authn --address 0.0.0.0 --credentials-file /service-account-key.json INSTANCE_CONNECTION_NAME_CHANGE_ME
+    restart: unless-stopped
+    logging: *gcp-logging
+    profiles:
+      - prod
