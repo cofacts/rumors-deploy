@@ -29,6 +29,36 @@ services:
       - "./data/mongo:/data/db"
     command: mongod
 
+<<<<<<< HEAD
+  # cofacts.ai AI agent backend (ADK)
+  adk:
+    image: cofacts/adk:latest
+    restart: always
+    env_file:
+      - ./env-files/adk
+    environment:
+      - PORT=8000
+      - LANGFUSE_BASE_URL=https://langfuse.cofacts.tw
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 60s
+      start_interval: 5s
+      timeout: 5s
+      retries: 6
+      start_period: 60s
+
+  # cofacts.ai website frontend
+  cofacts-ai:
+    image: cofacts/site:latest
+    restart: always
+    environment:
+      - PORT=3000
+      - ADK_URL=http://adk:8000
+      - PUBLIC_URL=https://cofacts.ai
+    depends_on:
+      adk:
+        condition: service_healthy
+=======
   url-resolver:
     image: cofacts/url-resolver
     ports: # expose for debugging
@@ -78,3 +108,4 @@ services:
         condition: service_started
       redis:
         condition: service_started
+>>>>>>> 906d808 (chore: simplify to a minimal docker-compose setup)
