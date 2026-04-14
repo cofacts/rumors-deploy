@@ -7,7 +7,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
 
   api:
     image: cofacts/rumors-api
@@ -18,8 +19,16 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - db
-      - url-resolver
+      db:
+        condition: service_healthy
+      url-resolver:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS http://localhost:5000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   db:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
@@ -29,6 +38,12 @@ services:
       - "./volumes/db-sample:/usr/share/elasticsearch/data"
     ports:
       - "62222:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS http://localhost:9200 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   url-resolver:
     image: cofacts/url-resolver
@@ -44,9 +59,12 @@ services:
     ports:
       - "5001:5001"
     depends_on:
-      - api
-      - mongo
-      - redis
+      api:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_started
 
   redis:
     image: redis

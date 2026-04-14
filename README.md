@@ -4,14 +4,7 @@ Deployment scripts for g0v rumors project
 
 ## Configuration
 
-We provides 2 versions of docker-compose.yml:
-
-- `docker-compose.sample.yml`: Minimal setup to get all Cofacts service running on a single computer.
-- `docker-compose.production.yml`: The actual setup (with secrets redacted) that is running on cofacts.g0v.tw . The differences are:
-  - `nginx` is added as a reverse-proxy and serves https certificates.
-  - `line-bot-zh` will be connected to AWS Cloudwatch logs, so you may need to [setup AWS credential accordingly](https://wdullaer.com/blog/2016/02/28/pass-credentials-to-the-awslogs-docker-logging-driver-on-ubuntu/).
-
-Before moving to next step, you are expected to create your own `docker-compose.yml` using the above mentioned file as reference.
+We provide a minimal setup in `docker-compose.sample.yml` to get all Cofacts services running on a single computer for local execution and testing.
 
 Explanation of each environment variables are in `.env.sample` of the corresponding [repository](https://github.com/cofacts/).
 
@@ -29,8 +22,8 @@ Explanation of each environment variables are in `.env.sample` of the correspond
    cp -r env-files.sample env-files
    # Edit files in env-files/ with your actual configuration values
    ```
-3. Make necessary changes to `docker-compose.yml` and files in `volumes/`
-4. `docker-compose up -d`
+3. Make necessary changes to `docker-compose.sample.yml` and files in `volumes/`
+4. `docker compose -f docker-compose.sample.yml up -d`
 
 If you want ot run the whole Cofacts on the laptop, you may find this note useful:
 <http://bit.ly/run-cofacts>
@@ -40,27 +33,24 @@ If you want ot run the whole Cofacts on the laptop, you may find this note usefu
 After image change:
 
 ```bash
-docker-compose pull <name>
-docker-compose up --no-deps -d <name>
+docker compose pull <name>
+docker compose up --no-deps -d <name>
 ```
 
 After changings file in `volumes/`:
 
 ```bash
-docker-compose restart <name>
+docker compose restart <name>
 ```
 
-where `<name>` can be `nginx`, `site`, `api` and `db`.
+where `<name>` can be `site`, `api` and `db`.
 
 ## Crontab setup
 
 `crontab -e` and add:
 
 ```text
-0 0 1 * * docker run --rm -v /var/www/cofacts:/var/www/cofacts -v /etc/letsencrypt:/etc/letsencrypt -v /etc/ssl/certs:/etc/ssl/certs -v /var/log:/var/log certbot/certbot certonly --webroot -w /var/www/cofacts -d cofacts.g0v.tw -m <your@email> --agree-tos --non-interactive >> /var/log/cron.log 2>&1
-5 0 1 * * docker run --rm -v /var/www/cofacts:/var/www/cofacts -v /etc/letsencrypt:/etc/letsencrypt -v /etc/ssl/certs:/etc/ssl/certs -v /var/log:/var/log certbot/certbot certonly --webroot -w /var/www/cofacts -d cofacts-api.g0v.tw -m <your@email> --agree-tos --non-interactive >> /var/log/cron.log 2>&1
-0 1 1 * * cd /home/docker/rumors-deploy; /usr/local/bin/docker-compose restart nginx >> /var/log/cron.log 2>&1
-5 0 * * * cd /home/docker/rumors-deploy; /usr/local/bin/docker-compose exec -T api node build/scripts/cleanupUrls.js >> /var/log/cron.log 2>&1
+5 0 * * * cd /home/docker/rumors-deploy; /usr/local/bin/docker compose exec -T api node build/scripts/cleanupUrls.js >> /var/log/cron.log 2>&1
 ```
 
 Optional mongodb backup
