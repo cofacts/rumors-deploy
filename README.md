@@ -22,8 +22,8 @@ Explanation of each environment variables are in `.env.sample` of the correspond
    cp -r env-files.sample env-files
    # Edit files in env-files/ with your actual configuration values
    ```
-3. Make necessary changes to `docker-compose.sample.yml` and files in `volumes/`
-4. `docker compose -f docker-compose.sample.yml up -d`
+3. Copy `docker-compose.sample.yml` to `docker-compose.yml` and make necessary changes to it and files in `volumes/` 
+4. `docker compose up -d`
 
 If you want ot run the whole Cofacts on the laptop, you may find this note useful:
 <http://bit.ly/run-cofacts>
