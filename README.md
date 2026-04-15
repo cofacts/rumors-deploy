@@ -22,18 +22,19 @@ graph TD
         site[Cofacts Site - :2999]
         site_ai[Cofacts AI - :3000]
         bot[LINE Bot - :5001]
-        adk[ADK - :8000]
     end
 
     subgraph Backend ["Core Backend"]
         collab[Collab Server - :5002]
+        adk[ADK - :8000]
         api[Rumors API - :5000]
-        db[(Elasticsearch - :62222)]
         url[URL Resolver - :4000]
+        db[(Elasticsearch - :62222)]
     end
 
     mongo[(MongoDB - :27017)]
     redis[(Redis)]
+    gcs[(Google Cloud Storage)]
 
     User --> site
     User --> site_ai
@@ -41,6 +42,7 @@ graph TD
 
     site --> collab
     site --> api
+    site_ai --> api
     site_ai --> adk
     bot --> api
     bot --> redis
@@ -48,9 +50,10 @@ graph TD
 
     adk --> api
 
-    api --> db
     api --> url
     collab --> db
+    api --> db
+    api --> gcs
 ```
 
 ### Repositories
