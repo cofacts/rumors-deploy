@@ -1,66 +1,119 @@
-# rumors-deploy
+# Cofacts System Blueprint (rumors-deploy)
 
-Deployment scripts for g0v rumors project
+`rumors-deploy` is the central architecture reference and deployment template for the entire [Cofacts](https://cofacts.tw) ecosystem. It provides a minimalist, self-documenting configuration to get all Cofacts services running on a single machine for research, local development, and testing.
 
-## Configuration
+## Philosophy
 
-We provide a minimal setup in `docker-compose.sample.yml` to get all Cofacts services running on a single computer for local execution and testing.
+- **System Blueprint**: This repository serves as the authoritative map of how Cofacts services interconnect.
+- **Transparency**: Clear visibility of service dependencies via `docker-compose` and health checks.
+- **Minimalism**: We intentionally omit production-only complexity (like Nginx reverse proxies or SSL termination) to keep the core logic accessible.
+- **Reference Deployment**: It defines the "contract" between services via shared environment variables and network links.
 
-Explanation of each environment variables are in `.env.sample` of the corresponding [repository](https://github.com/cofacts/).
+## Architecture Overview
+
+The following diagram illustrates how the different components of the Cofacts ecosystem interact within this deployment:
+
+```mermaid
+graph TD
+    User([User])
+    BotUser([LINE Bot User])
+
+    subgraph UI ["User Interfaces"]
+        site[Cofacts Site - :3000]
+        site_ai[Cofacts AI - :3000]
+        bot[LINE Bot - :5001]
+    end
+
+    subgraph Backend ["Core Backend"]
+        api[Rumors API - :5000]
+        db[(Elasticsearch - :62222)]
+        url[URL Resolver - :4000]
+    end
+
+    subgraph AI ["AI & Agent Backend"]
+        adk[ADK - :8000]
+        mongo[(MongoDB - :27017)]
+        redis[(Redis)]
+    end
+
+    User --> site
+    User --> site_ai
+    BotUser --> bot
+
+    site --> api
+    site_ai --> adk
+    bot --> api
+    bot --> redis
+    bot --> mongo
+    
+    adk --> api
+    adk --> mongo
+    adk --> redis
+    
+    api --> db
+    api --> url
+```
 
 ## Prerequisites
 
-1. docker & docker-compose
-2. git
+1. **Docker & Docker Compose** (V2 recommended)
+2. **Git**
 
-## Deploy steps
+## Quick Start
 
-0. `su` to appropriate user (for instance, `docker`)
-1. Clone this repo on production server
-2. Copy the `env-files.sample` directory to `env-files` and populate with your actual environment values:
+1. **Clone this project**:
+   ```bash
+   git clone https://github.com/cofacts/rumors-deploy.git
+   cd rumors-deploy
+   ```
+
+2. **Setup environment variables**:
+   Copy the sample directory and populate it with your actual values.
    ```bash
    cp -r env-files.sample env-files
-   # Edit files in env-files/ with your actual configuration values
+   # Edit files in env-files/ with your configuration
    ```
-3. Copy `docker-compose.sample.yml` to `docker-compose.yml` and make necessary changes to it and files in `volumes/` 
-4. `docker compose up -d`
 
-If you want ot run the whole Cofacts on the laptop, you may find this note useful:
-<http://bit.ly/run-cofacts>
+3. **Initialize Docker Compose**:
+   Copy the sample template to the active configuration.
+   ```bash
+   cp docker-compose.sample.yml docker-compose.yml
+   # Optional: Make necessary changes to docker-compose.yml
+   ```
 
-## Updating any image
+4. **Launch the ecosystem**:
+   ```bash
+   docker compose up -d
+   ```
 
-After image change:
+## Configuration
 
+Each service's configuration is managed via files in `env-files/`. 
+
+> [!NOTE]
+> The sample files in `env-files.sample/` are kept minimal. For the most up-to-date and comprehensive environment variable documentation, please refer to the `.env.sample` files in their respective repositories (links are provided in each sample file).
+
+## Maintenance
+
+### Updating Images
+To update a specific service (e.g., `api`):
 ```bash
-docker compose pull <name>
-docker compose up --no-deps -d <name>
+docker compose pull api
+docker compose up --no-deps -d api
 ```
 
-After changings file in `volumes/`:
-
+### Applying Volume Changes
+After changing configuration files mounted in `volumes/`:
 ```bash
-docker compose restart <name>
+docker compose restart <service-name>
 ```
 
-where `<name>` can be `site`, `api` and `db`.
+## Production Considerations
 
-## Crontab setup
+While `rumors-deploy` provides the logical core of Cofacts, a full production deployment typically requires additional layers:
+- **Reverse Proxy**: Nginx or Traefik for SSL (HTTPS) termination and domain routing.
+- **Backups**: Regular snapshots of Elasticsearch and MongoDB volumes.
+- **Monitoring**: Logging and metrics collection for production stability.
 
-`crontab -e` and add:
-
-```text
-5 0 * * * cd /home/docker/rumors-deploy; /usr/local/bin/docker compose exec -T api node build/scripts/cleanupUrls.js >> /var/log/cron.log 2>&1
-```
-
-Optional mongodb backup
-
-```text
-0 0 * * * docker run -it --rm -v <key-file-for-gcs>:/home/db-backup/key.json \
-  --env GCP_PROJECT_ID=<project-id> \
-  --env GCS_BUCKET=<bucket> \
-  --env MONGOURI=mongodb+srv://<username>:<password>@<host>/<db> \
-  cofacts/mongodb-gsutil
-```
-
-To see [cofacts/mongodb-gsutil](https://github.com/cofacts/mongodb-gsutil).
+---
+For more details on running Cofacts on a local machine, see this [guide](http://bit.ly/run-cofacts).
