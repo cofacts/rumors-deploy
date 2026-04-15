@@ -76,7 +76,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "./data/mongo:/data/db"
+      - "./volumes/mongo:/data/db"
     command: mongod
 
   # cofacts.ai AI agent backend (ADK)
