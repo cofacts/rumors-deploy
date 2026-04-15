@@ -28,8 +28,8 @@ graph TD
         collab[Collab Server - :5002]
         adk[ADK - :8000]
         api[Rumors API - :5000]
-        url[URL Resolver - :4000]
         db[(Elasticsearch - :62222)]
+        url[URL Resolver - :4000]
     end
 
     mongo[(MongoDB - :27017)]
@@ -44,14 +44,16 @@ graph TD
     site --> api
     site_ai --> api
     site_ai --> adk
+
+    adk --> api
+
     bot --> api
     bot --> redis
     bot --> mongo
 
-    adk --> api
+    collab --> db
 
     api --> url
-    collab --> db
     api --> db
     api --> gcs
 ```
