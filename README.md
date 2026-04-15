@@ -50,6 +50,14 @@ graph TD
     api --> url
 ```
 
+### Repositories
+
+- [Rumors API](https://github.com/cofacts/rumors-api) - Core GraphQL API
+- [Cofacts Site](https://github.com/cofacts/rumors-site) - Main website (Next.js)
+- [Cofacts AI & ADK](https://github.com/cofacts/ai) - AI agent platform and ADK backend
+- [LINE Bot](https://github.com/cofacts/rumors-line-bot) - LINE bot backend
+- [URL Resolver](https://github.com/cofacts/url-resolver) - URL metadata scraper
+
 ## Prerequisites
 
 1. **Docker & Docker Compose** (V2 recommended)
