@@ -1,4 +1,7 @@
 # Google Gemini API key (https://aistudio.google.com/app/apikey)
+# For up-to-date env sample, please refer to:
+# https://github.com/cofacts/ai/blob/master/adk/cofacts_ai/.env.example
+
 GOOGLE_API_KEY=
 
 # Langfuse credentials (https://langfuse.cofacts.tw → Project Settings)

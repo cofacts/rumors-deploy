@@ -1,5 +1,0 @@
-PORT=3000
-VITE_API_URL=https://api.cofacts.tw
-VITE_ADK_URL=http://adk:8000
-# GOOGLE_ANALYTICS_ID=
-# SENTRY_DSN=

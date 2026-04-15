@@ -1,13 +1,10 @@
-volumes/db-production/*
-volumes/db-staging/*
-volumes/db-sample/*
+volumes/*/*
 !.gitkeep
 docker-compose.yml
 
 # For mongodump output directory
 db-backup/*
 !db-backup/.gitkeep
-data
 env-files
 
 # Prevent google-github-actions/auth credentials being committed to git by accident

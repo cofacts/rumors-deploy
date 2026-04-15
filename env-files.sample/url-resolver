@@ -1,3 +1,7 @@
+# For up-to-date env sample, please refer to:
+# https://github.com/cofacts/url-resolver/blob/master/.env.sample
+
+PORT=4000
 YOUTUBE_API_KEY=
 ROLLBAR_TOKEN=
 ROLLBAR_ENV=production

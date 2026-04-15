@@ -1,3 +1,6 @@
+# For up-to-date env sample, please refer to:
+# https://github.com/cofacts/rumors-line-bot/blob/master/.env.sample
+
 # Build-time variables
 LOCALE=zh_TW
 ROLLBAR_ENV=localhost
@@ -12,6 +15,7 @@ SITE_URLS=http://cofacts.tw,https://cofacts.g0v.tw
 LINE_CHANNEL_SECRET=
 LINE_CHANNEL_TOKEN=
 LINE_LOGIN_CHANNEL_ID=
+
 REDIS_URL=redis://redis:6379
 PORT=5001
 ROLLBAR_TOKEN=

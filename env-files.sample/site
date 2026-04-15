@@ -1,3 +1,6 @@
+# For up-to-date env sample, please refer to:
+# https://github.com/cofacts/rumors-site/blob/master/.env.sample
+
 PORT=3000
 NODE_ENV=production
 SERVER_ROLLBAR_TOKEN=
