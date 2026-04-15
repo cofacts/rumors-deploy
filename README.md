@@ -53,6 +53,7 @@ graph TD
 ### Repositories
 
 - [Rumors API](https://github.com/cofacts/rumors-api) - Core GraphQL API
+- [Rumors DB](https://github.com/cofacts/rumors-db) - Elasticsearch index definitions and mappings
 - [Cofacts Site](https://github.com/cofacts/rumors-site) - Main website (Next.js)
 - [Cofacts AI & ADK](https://github.com/cofacts/ai) - AI agent platform and ADK backend
 - [LINE Bot](https://github.com/cofacts/rumors-line-bot) - LINE bot backend
