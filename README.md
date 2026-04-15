@@ -16,12 +16,13 @@ The following diagram illustrates how the different components of the Cofacts ec
 ```mermaid
 graph TD
     User([User])
-    BotUser([LINE Bot User])
+    BotUser([LINE messager])
 
-    subgraph UI ["User Interfaces"]
+    subgraph UI ["Services"]
         site[Cofacts Site - :2999]
         site_ai[Cofacts AI - :3000]
         bot[LINE Bot - :5001]
+        adk[ADK - :8000]
     end
 
     subgraph Backend ["Core Backend"]
@@ -30,11 +31,8 @@ graph TD
         url[URL Resolver - :4000]
     end
 
-    subgraph AI ["AI & Agent Backend"]
-        adk[ADK - :8000]
-        mongo[(MongoDB - :27017)]
-        redis[(Redis)]
-    end
+    mongo[(MongoDB - :27017)]
+    redis[(Redis)]
 
     User --> site
     User --> site_ai
@@ -45,11 +43,9 @@ graph TD
     bot --> api
     bot --> redis
     bot --> mongo
-    
+
     adk --> api
-    adk --> mongo
-    adk --> redis
-    
+
     api --> db
     api --> url
 ```
@@ -88,7 +84,7 @@ graph TD
 
 ## Configuration
 
-Each service's configuration is managed via files in `env-files/`. 
+Each service's configuration is managed via files in `env-files/`.
 
 > [!NOTE]
 > The sample files in `env-files.sample/` are kept minimal. For the most up-to-date and comprehensive environment variable documentation, please refer to the `.env.sample` files in their respective repositories (links are provided in each sample file).
