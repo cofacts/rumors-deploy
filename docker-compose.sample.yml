@@ -24,7 +24,7 @@ services:
       url-resolver:
         condition: service_started
     healthcheck:
-      test: ["CMD-SHELL", "curl -sS http://localhost:5000/ || exit 1"]
+      test: ["CMD-SHELL", "curl -sfS http://localhost:5000/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -39,7 +39,7 @@ services:
     ports:
       - "62222:9200"
     healthcheck:
-      test: ["CMD-SHELL", "curl -sS http://localhost:9200 || exit 1"]
+      test: ["CMD-SHELL", "curl -sfS http://localhost:9200 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
