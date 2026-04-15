@@ -27,6 +27,7 @@ graph TD
 
     subgraph Backend ["Core Backend"]
         api[Rumors API - :5000]
+        collab[Collab Server - :5002]
         db[(Elasticsearch - :62222)]
         url[URL Resolver - :4000]
     end
@@ -39,6 +40,7 @@ graph TD
     BotUser --> bot
 
     site --> api
+    site --> collab
     site_ai --> adk
     bot --> api
     bot --> redis
@@ -48,6 +50,7 @@ graph TD
 
     api --> db
     api --> url
+    collab --> db
 ```
 
 ### Repositories
@@ -58,6 +61,7 @@ graph TD
 - [Cofacts AI & ADK](https://github.com/cofacts/ai) - AI agent platform and ADK backend
 - [LINE Bot](https://github.com/cofacts/rumors-line-bot) - LINE bot backend
 - [URL Resolver](https://github.com/cofacts/url-resolver) - URL metadata scraper
+- [Collab Server](https://github.com/cofacts/collab-server) - Collaboration backend
 
 ## Prerequisites
 
