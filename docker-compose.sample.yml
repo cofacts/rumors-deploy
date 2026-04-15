@@ -5,7 +5,7 @@ services:
     env_file:
       - ./env-files/site
     ports:
-      - "3000:3000"
+      - "2999:3000"
     depends_on:
       api:
         condition: service_healthy
@@ -100,6 +100,8 @@ services:
   cofacts-ai:
     image: cofacts/site:latest
     restart: always
+    ports:
+      - "3000:3000"
     environment:
       - PORT=3000
       - ADK_URL=http://adk:8000
