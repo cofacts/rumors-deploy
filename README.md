@@ -26,8 +26,8 @@ graph TD
     end
 
     subgraph Backend ["Core Backend"]
-        api[Rumors API - :5000]
         collab[Collab Server - :5002]
+        api[Rumors API - :5000]
         db[(Elasticsearch - :62222)]
         url[URL Resolver - :4000]
     end
@@ -39,8 +39,8 @@ graph TD
     User --> site_ai
     BotUser --> bot
 
-    site --> api
     site --> collab
+    site --> api
     site_ai --> adk
     bot --> api
     bot --> redis
