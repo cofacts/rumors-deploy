@@ -12,13 +12,11 @@ services:
 
   collab-server:
     image: cofacts/collab-server
-    env_file:
-      - ./env-files/collab-server
+    environment:
+      - PORT=1234
+      - ELASTICSEARCH_URL=http://db:9200
     ports:
-      - "5002:5002"
-    depends_on:
-      db:
-        condition: service_healthy
+      - "5002:1234"
 
   api:
     image: cofacts/rumors-api
@@ -41,9 +39,11 @@ services:
       start_period: 30s
 
   db:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.3.2
     environment:
-      - path.repo=/usr/share/elasticsearch/data
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms4g -Xmx4g
+      - xpack.security.enabled=false
     volumes:
       - "./volumes/db-sample:/usr/share/elasticsearch/data"
     ports:
@@ -56,14 +56,14 @@ services:
       start_period: 30s
 
   url-resolver:
-    image: cofacts/url-resolver
+    image: cofacts/url-resolver:latest
     ports: # expose for debugging
       - "4000:4000"
     env_file:
       - ./env-files/url-resolver
 
   line-bot-zh:
-    image: cofacts/rumors-line-bot:dev
+    image: cofacts/rumors-line-bot:latest-tw
     env_file:
       - ./env-files/line-bot-zh
     ports:
@@ -77,7 +77,7 @@ services:
         condition: service_started
 
   redis:
-    image: redis
+    image: redis:alpine
 
   mongo:
     image: mongo:3.6
@@ -116,6 +116,7 @@ services:
       - PORT=3000
       - ADK_URL=http://adk:8000
       - PUBLIC_URL=http://localhost:3000
+      - COFACTS_API_URL=http://api:5000
     depends_on:
       adk:
         condition: service_healthy
