@@ -22,6 +22,9 @@ services:
     image: cofacts/rumors-api
     env_file:
       - ./env-files/api
+    networks:
+      - default
+      - fetcher
     volumes:
       - "./volumes/api:/data"
     ports:
@@ -61,6 +64,10 @@ services:
       - "4000:4000"
     env_file:
       - ./env-files/url-resolver
+    # url-resolver fetches user-submitted URLs, so it must not share a network
+    # with db / redis / adk (SSRF). Only its callers join fetcher as well.
+    networks:
+      - fetcher
 
   line-bot-zh:
     image: cofacts/rumors-line-bot:latest-tw
@@ -120,3 +127,8 @@ services:
     depends_on:
       adk:
         condition: service_healthy
+
+networks:
+  # For services that fetch untrusted, user-submitted URLs (url-resolver).
+  # Kept apart from the default network (db, redis, adk, ...) against SSRF.
+  fetcher:
