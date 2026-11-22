@@ -11,3 +11,9 @@ LANGFUSE_SECRET_KEY=sk-lf-
 
 # PostgreSQL session storage (optional, falls back to SQLite for local dev)
 DATABASE_URL=
+
+# Redis for background runs (cofacts/ai#197): a chat turn keeps running after
+# the browser tab closes, and any window can watch it. Uses the `redis` service
+# shared with rumors-line-bot; all keys are prefixed `cofacts-ai:` and expire.
+# Leave empty to turn background runs off (turns then end with the tab).
+REDIS_URL=redis://redis:6379

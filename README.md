@@ -46,6 +46,7 @@ graph TD
     site_ai --> adk
 
     adk --> api
+    adk --> redis
 
     bot --> api
     bot --> redis
